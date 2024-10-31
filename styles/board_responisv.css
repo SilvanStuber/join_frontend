@@ -1,0 +1,955 @@
+@media (min-width: 300px) and (max-width: 400px) {
+  .searchBar {
+    width: 98%;
+  }
+
+  .primaryBoard {
+    display: none;
+  }
+
+  .plus_add_task_mobile {
+    display: block;
+  }
+
+  .tasksToDo {
+    margin-left: 20px;
+    width: 100%;
+    height: 100vh;
+  }
+
+  .cardA {
+    margin: 0;
+  }
+
+  .searchbarIn {
+    width: 94%;
+    padding-inline: 10px;
+    margin-left: 0;
+    margin-right: 0;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .headlineBoard {
+    margin-left: 0px;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .searchinput {
+    width: 100%;
+  }
+
+  .searchBoxLeft {
+    width: 100%;
+    margin-right: 0px;
+  }
+
+  .searchBox {
+    width: 100%;
+  }
+
+  .taskAria {
+    flex-wrap: wrap;
+    padding: 0;
+    min-height: 100vh;
+    margin: auto;
+    justify-content: center;
+  }
+
+  .largeCardA {
+    width: 85%;
+    padding: 48px 22px;
+  }
+
+  .lardCardCategory {
+    font-size: 19px;
+  }
+
+  .changeProgress {
+    width: 80%;
+  }
+
+  .changeProgressTo,
+  .changeProgressToEdit {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 220px;
+    gap: 9px;
+  }
+
+  .categoryFrame74Board {
+    width: 89%;
+  }
+
+  .dueDate_frame14 {
+    width: 88%;
+  }
+
+  .wd100 {
+    width: 99%;
+  }
+
+  .BoardcontentTask {
+    width: 95%;
+  }
+
+  .contactAvatarBoard {
+    width: 225px;
+    margin-left: 20px;
+  }
+
+  .inputRight_addTask {
+    align-items: flex-start;
+  }
+
+  .subtasksEdit {
+    width: 95%;
+  }
+
+  .boardpriority {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .searchContactsBoard {
+    font-size: 11px;
+    width: 162px;
+  }
+
+  .changeProgressTo {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .custom-checkbox-board {
+    font-size: 15px;
+  }
+
+  .inputLeft_addTaskBoard {
+    width: 100%;
+  }
+  .contactListSelected {
+    width: 100%;
+    font-size: 10px;
+  }
+
+  .underListContactBoard {
+    width: 260px;
+    font-size: 10px;
+  }
+
+  .custom-checkbox-board label:before {
+    left: 150px !important;
+  }
+
+  .contactListBoard:hover .custom-checkbox-board input[type="checkbox"]:checked + label:before {
+    left: 150px !important;
+  }
+  .circleAvatarBoard {
+    width: 32px;
+    height: 32px;
+  }
+
+  .contactListSelected {
+    width: 97%;
+    font-size: 10px;
+  }
+
+  .underListContactBoard {
+    width: 95%;
+    font-size: 10px;
+  }
+
+  .custom-checkbox-board label:before {
+    left: 185px;
+  }
+
+  .contactListBoard:hover .custom-checkbox-board input[type="checkbox"]:checked + label:before {
+    left: 185px;
+  }
+  .circleAvatarBoard {
+    width: 32px;
+    height: 32px;
+  }
+  .circleAvatarBoardChecked {
+    margin-left: -30px;
+  }
+}
+
+@media (min-width: 400px) and (max-width: 450px) {
+  .searchBar {
+    width: 98%;
+  }
+
+  .primaryBoard {
+    display: none;
+  }
+
+  .plus_add_task_mobile {
+    display: block;
+  }
+
+  .tasksToDo {
+    margin-left: 20px;
+    width: 100%;
+    height: 100vh;
+  }
+
+  .cardA {
+    margin: 0;
+  }
+
+  .searchbarIn {
+    width: 94%;
+    padding-inline: 10px;
+    margin-left: 0;
+    margin-right: 0;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .headlineBoard {
+    margin-left: 0px;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .searchinput {
+    width: 100%;
+  }
+
+  .searchBoxLeft {
+    width: 100%;
+    margin-right: 0px;
+  }
+
+  .searchBox {
+    width: 100%;
+  }
+
+  .taskAria {
+    flex-wrap: wrap;
+    padding: 0;
+    min-height: 100vh;
+    margin: auto;
+    justify-content: center;
+  }
+
+  .largeCardA {
+    width: 344px;
+    padding: 48px 13px;
+  }
+
+  .changeProgress {
+    width: 80%;
+  }
+
+  .categoryFrame74Board {
+    width: 89%;
+  }
+
+  .dueDate_frame14 {
+    width: 86%;
+  }
+
+  .wd100 {
+    width: 99%;
+  }
+
+  .BoardcontentTask {
+    width: 95%;
+  }
+
+  .contactAvatarBoard {
+    width: 250px;
+    margin-left: 20px;
+  }
+
+  .inputRight_addTask {
+    align-items: flex-start;
+  }
+
+  .subtasksEdit {
+    width: 95%;
+  }
+
+  .boardpriority {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .searchContactsBoard {
+    font-size: 16px;
+    width: 200px;
+  }
+
+  .changeProgressTo {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .custom-checkbox-board {
+    font-size: 15px;
+  }
+
+  .contactListSelected {
+    width: 97%;
+    font-size: 10px;
+  }
+
+  .underListContactBoard {
+    width: 265px;
+    font-size: 10px;
+  }
+
+  .custom-checkbox-board label:before {
+    left: 170px;
+  }
+
+  .contactListBoard:hover .custom-checkbox-board input[type="checkbox"]:checked + label:before {
+    left: 170px;
+  }
+  .circleAvatarBoard {
+    width: 32px;
+    height: 32px;
+  }
+  .circleAvatarBoardChecked {
+    margin-left: -30px;
+  }
+}
+
+@media (min-width: 450px) and (max-width: 500px) {
+  .searchBar {
+    width: 98%;
+  }
+
+  .primaryBoard {
+    display: none;
+  }
+
+  .plus_add_task_mobile {
+    display: block;
+  }
+
+  .tasksToDo {
+    margin-left: 20px;
+    width: 100%;
+    height: 100vh;
+  }
+
+  .cardA {
+    margin: 0;
+  }
+
+  .searchbarIn {
+    width: 96%;
+    padding-inline: 10px;
+    margin-left: 0;
+    margin-right: 0;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .headlineBoard {
+    margin-left: 0px;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .searchinput {
+    width: 100%;
+  }
+
+  .searchBoxLeft {
+    width: 100%;
+    margin-right: 0px;
+  }
+
+  .searchBox {
+    width: 100%;
+  }
+
+  .taskAria {
+    flex-wrap: wrap;
+    padding: 0;
+    min-height: 100vh;
+    margin: auto;
+    justify-content: center;
+  }
+
+  .largeCardA {
+    width: 350px;
+  }
+
+  .changeProgress {
+    width: 80%;
+  }
+
+  .categoryFrame74Board {
+    width: 89%;
+  }
+
+  .dueDate_frame14 {
+    width: 86%;
+  }
+
+  .wd100 {
+    width: 99%;
+  }
+
+  .BoardcontentTask {
+    width: 95%;
+  }
+
+  .contactAvatarBoard {
+    width: 250px;
+    margin-left: 20px;
+  }
+
+  .inputRight_addTask {
+    align-items: flex-start;
+  }
+
+  .subtasksEdit {
+    width: 95%;
+  }
+
+  .boardpriority {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .searchContactsBoard {
+    font-size: 16px;
+    width: 200px;
+  }
+
+  .changeProgressTo {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .custom-checkbox-board {
+    font-size: 15px;
+  }
+
+  .contactListSelected {
+    width: 97%;
+  }
+
+  .underListContactBoard {
+    width: 270px;
+    font-size: 10px;
+  }
+
+  .custom-checkbox-board label:before {
+    left: 177px;
+  }
+
+  .contactListBoard:hover .custom-checkbox-board input[type="checkbox"]:checked + label:before {
+    left: 177px;
+  }
+  .circleAvatarBoard {
+    width: 32px;
+    height: 32px;
+  }
+  .circleAvatarBoardChecked {
+    margin-left: -30px;
+  }
+}
+
+@media (min-width: 500px) and (max-width: 600px) {
+  .searchBar {
+    width: 98%;
+  }
+
+  .primaryBoard {
+    display: none;
+  }
+
+  .plus_add_task_mobile {
+    display: block;
+  }
+
+  .tasksToDo {
+    margin-left: 20px;
+    width: 100%;
+    height: 100vh;
+  }
+
+  .cardA {
+    margin: 0;
+  }
+
+  .searchbarIn {
+    width: 98%;
+    padding-inline: 10px;
+    margin-left: 0;
+    margin-right: 0;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .headlineBoard {
+    margin-left: 0px;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .searchinput {
+    width: 100%;
+  }
+
+  .searchBoxLeft {
+    width: 100%;
+    margin-right: 0px;
+  }
+
+  .custom-checkbox-board {
+    font-size: 15px;
+  }
+
+  .searchBox {
+    width: 100%;
+  }
+
+  .taskAria {
+    flex-wrap: wrap;
+    padding: 0;
+    min-height: 100vh;
+    margin: auto;
+    justify-content: center;
+  }
+
+  .largeCardA {
+    width: 410px;
+  }
+
+  .categoryFrame74Board {
+    width: 390px;
+  }
+
+  .changeProgress {
+    width: 80%;
+  }
+
+  .dueDate_frame14 {
+    width: 90%;
+  }
+
+  .contactAvatarBoard {
+    width: 400px;
+  }
+
+  .frame211 {
+    width: 360px;
+  }
+
+  .categoryFrame74Board {
+    width: 89%;
+  }
+
+  .dueDate_frame14 {
+    width: 86%;
+  }
+
+  .wd100 {
+    width: 99%;
+  }
+
+  .BoardcontentTask {
+    width: 95%;
+  }
+
+  .contactAvatarBoard {
+    width: 350px;
+  }
+
+  .inputRight_addTask {
+    align-items: flex-start;
+  }
+
+  .subtasksEdit {
+    width: 95%;
+  }
+
+  .contactListSelected {
+    width: 97%;
+  }
+
+  .underListContactBoard {
+    width: 320px;
+  }
+
+  .custom-checkbox-board label:before {
+    left: 200px;
+  }
+
+  .contactListBoard:hover .custom-checkbox-board input[type="checkbox"]:checked + label:before {
+    left: 200px;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 700px) {
+  .searchBar {
+    width: 98%;
+  }
+
+  .primaryBoard {
+    display: none;
+  }
+
+  .plus_add_task_mobile {
+    display: block;
+  }
+
+  .tasksToDo {
+    margin-left: 20px;
+    width: 100%;
+    height: 100vh;
+  }
+
+  .cardA {
+    margin: 0;
+  }
+
+  .searchbarIn {
+    width: 98%;
+    padding-inline: 10px;
+    margin-left: 0;
+    margin-right: 0;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .headlineBoard {
+    margin-left: 0px;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .searchinput {
+    width: 100%;
+  }
+
+  .searchBoxLeft {
+    width: 100%;
+    margin-right: 0px;
+  }
+
+  .searchBox {
+    width: 100%;
+  }
+
+  .taskAria {
+    flex-wrap: wrap;
+    padding: 0;
+    min-height: 100vh;
+    margin: auto;
+    justify-content: center;
+  }
+
+  .closeLargeEditCardButton {
+    width: 89%;
+  }
+
+  .largeCardA {
+    width: 470px;
+  }
+
+  .categoryFrame74Board {
+    width: 89%;
+  }
+
+  .dueDate_frame14 {
+    width: 90%;
+  }
+
+  .wd100 {
+    width: 99%;
+  }
+
+  .BoardcontentTask {
+    width: 95%;
+  }
+
+  .contactAvatarBoard {
+    width: 400px;
+  }
+
+  .inputRight_addTask {
+    align-items: flex-start;
+  }
+
+  .subtasksEdit {
+    width: 95%;
+  }
+
+  .underListContactBoard {
+    width: 357px;
+  }
+
+  .custom-checkbox-board label:before {
+    left: 250px;
+  }
+
+  .contactListBoard:hover .custom-checkbox-board input[type="checkbox"]:checked + label:before {
+    left: 250px;
+  }
+}
+
+@media (min-width: 700px) and (max-width: 800px) {
+  .searchBar {
+    width: 98%;
+  }
+
+  .primaryBoard {
+    display: none;
+  }
+
+  .plus_add_task_mobile {
+    display: block;
+  }
+
+  .tasksToDo {
+    margin-left: 20px;
+    width: 100%;
+    height: 100vh;
+  }
+
+  .cardA {
+    margin: 0;
+  }
+
+  .searchbarIn {
+    width: 98%;
+    padding-inline: 10px;
+    margin-left: 0;
+    margin-right: 0;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .headlineBoard {
+    margin-left: 0px;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .searchinput {
+    width: 100%;
+  }
+
+  .searchBoxLeft {
+    width: 100%;
+    margin-right: 0px;
+  }
+
+  .searchBox {
+    width: 100%;
+  }
+
+  .taskAria {
+    flex-wrap: wrap;
+    padding: 0;
+    min-height: 100vh;
+  }
+}
+
+@media (min-width: 800px) and (max-width: 900px) {
+  .searchBar {
+    width: 98%;
+  }
+
+  .primaryBoard {
+    display: none;
+  }
+
+  .plus_add_task_mobile {
+    display: block;
+  }
+
+  .tasksToDo {
+    margin-left: 20px;
+    width: 100%;
+    height: 100vh;
+  }
+
+  .cardA {
+    margin: 0;
+  }
+
+  .searchbarIn {
+    width: 98%;
+    padding-inline: 10px;
+    margin-left: 0;
+    margin-right: 0;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .headlineBoard {
+    margin-left: 0px;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .searchinput {
+    width: 100%;
+  }
+
+  .searchBoxLeft {
+    width: 100%;
+    margin-right: 0px;
+  }
+
+  .searchBox {
+    width: 100%;
+  }
+
+  .taskAria {
+    flex-wrap: wrap;
+    padding: 0;
+    min-height: 100vh;
+  }
+
+  .BoardcontentTask {
+    width: 100%;
+  }
+}
+
+@media (min-width: 900px) and (max-width: 1000px) {
+  .searchBar {
+    width: 98%;
+  }
+
+  .tasksToDo {
+    margin-left: 20px;
+    width: 100%;
+    height: 100vh;
+  }
+
+  .cardA {
+    margin: 0;
+  }
+
+  .searchbarIn {
+    width: 98%;
+    padding-inline: 10px;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .headlineBoard {
+    margin-left: 0px;
+  }
+
+  .searchBoxLeft {
+    width: 444px;
+    margin-right: 34px;
+  }
+
+  .searchBox {
+    width: 230px;
+  }
+
+  .taskAria {
+    flex-wrap: wrap;
+    padding: 0;
+    min-height: 100vh;
+  }
+}
+
+@media (min-width: 1000px) and (max-width: 1120px) {
+  .searchBar {
+    width: 98%;
+  }
+
+  .searchbarIn {
+    width: 98%;
+    padding-inline: 10px;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .headlineBoard {
+    margin-left: 60px;
+  }
+
+  .searchBoxLeft {
+    width: 444px;
+    margin-right: 34px;
+  }
+
+  .searchBox {
+    width: 230px;
+  }
+
+  .taskAria {
+    flex-wrap: wrap;
+    margin: auto;
+    padding: 0;
+  }
+}
+
+@media (min-width: 1120px) and (max-width: 1320px) {
+  .searchBar {
+    width: 98%;
+  }
+
+  .searchbarIn {
+    width: 98%;
+    padding-inline: 10px;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .headlineBoard {
+    margin-left: 60px;
+  }
+
+  .searchBoxLeft {
+    width: 444px;
+  }
+
+  .searchBox {
+    width: 260px;
+  }
+
+  .taskAria {
+    flex-wrap: wrap;
+    margin: auto;
+    padding: 0;
+  }
+}
+
+@media (min-width: 1320px) and (max-width: 1520px) {
+  .searchBar {
+    width: 98%;
+  }
+
+  .searchbarIn {
+    width: 98%;
+    padding-inline: 10px;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .headlineBoard {
+    margin-left: 60px;
+  }
+
+  .taskAria {
+    flex-wrap: wrap;
+    margin: auto;
+    padding: 0;
+  }
+}

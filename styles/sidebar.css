@@ -1,0 +1,231 @@
+.box-sizing {
+  margin: 0;
+}
+
+:root {
+  --sidebarBgColorResponsiv: #2A3647;
+  --linkActiveResponsiv: #091931; 
+  --sidbarlinkHover: #2a3d59;
+  --sidebarTextHover: #1aa7e4;
+  --sidebarBgColor: #2a3647;
+  --linkActive: #091931;
+  --textColor: #fff;
+  --sideWidth: 232px;
+  --sideHeight: 100vh;
+  --fonSiz16: 16px;
+}
+
+.box-sizing {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 232px;
+  background: var(--sidebarBgColor);
+  z-index: 999;
+  font-family: "Inter", sans-serif;
+}
+
+.sidebar {
+  width: 232px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sidbarLogo {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding-top: 64px;
+}
+
+.sidebarLinks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  width: 232px;
+}
+
+.sidebarIMG {
+  padding-left: 60px;
+}
+
+.sidebarCategory {
+  display: flex;
+  height: 46px;
+  align-items: center;
+  gap: 8px;
+  justify-content: flex-start;
+  width: 232px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.sidebarCategory:hover {
+  background-color: var(--sidbarlinkHover);
+}
+
+.sidebarCategoryLinkActive {
+  background-color: var(--linkActive) !important;
+}
+
+.sidebarLinkContainer {
+  position: absolute;
+  top: 300px;
+}
+
+.sidebarLink {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.sidebarMenuText {
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+  color: var(--textColor);
+}
+
+.privacy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+  margin-bottom: 48px;
+}
+
+.dataProtectionContainer {
+  width: 100%;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.dataProtection {
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  margin-left: 60px;
+  color: var(--textColor);
+}
+
+.dataProtectionTextColor:hover {
+  color: var(--sidebarTextHover);
+  transform: scale(1.1);
+}
+
+.responsivElements{
+ 
+  width:100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.box-sizingResponsiv { 
+  align-items: center;
+  display:flex;
+  bottom:0;
+  width: 100%;
+  height: 80px;
+  justify-content: space-around;
+  position: fixed;  
+  background: var(--sidebarBgColorResponsiv);
+  z-index: 999;
+  font-family: 'Inter', sans-serif ;
+}
+
+.sidebarLinkResponsiv {
+  cursor: pointer;
+  width: 76px;
+  height: 76px;
+}
+
+.summaryBtHover{
+  display:none;
+}
+
+.sidebarCategoryResponsiv:hover .summaryBtHover{
+  display: flex;
+  border-radius: 18px;
+  width: 76px;
+  height: 76px;
+  background-color: #091931;
+} 
+
+.summaryBt{
+  display: block;
+}
+
+.sidebarCategoryResponsiv:hover .summaryBt{
+  display: none;
+} 
+
+.addTaskBtHover{
+  display:none;
+}
+
+.sidebarCategoryResponsiv:hover .addTaskBtHover{
+  display: flex;
+  border-radius: 18px;
+  width: 76px;
+  height: 76px;
+  background-color: #091931;
+} 
+
+.addTaskBt{
+  display: block; 
+}
+
+.sidebarCategoryResponsiv:hover .addTaskBt{
+  display: none;
+} 
+
+.boardBtHover{
+  display:none;
+}
+
+.sidebarCategoryResponsiv:hover .boardBtHover{
+  display: flex;
+  border-radius: 18px;
+  width: 76px;
+  height: 76px;
+  background-color: #091931;
+} 
+
+.boardBt{
+  display: block;
+}
+
+.sidebarCategoryResponsiv:hover .boardBt{
+  display: none;
+}
+
+.contactsBtHover{
+  display:none;
+}
+
+.sidebarCategoryResponsiv:hover .contactsBtHover{
+  display: flex;
+  border-radius: 18px;
+  width: 76px;
+  height: 76px;
+  background-color: #091931;
+} 
+
+.contactsBt{
+  display: block;
+}
+
+.sidebarCategoryResponsiv:hover .contactsBt{
+  display: none;
+}

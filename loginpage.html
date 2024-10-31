@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Log in</title>
+    <!-- script -->
+    <script src="./js/header.js"></script>
+    <script src="./js/loginpage.js"></script>
+    <script src="./js/register.js"></script>
+    <script src="./js/legal_help_privacy.js"></script>
+    <script src="./js/help_HTML.js"></script>
+    <script src="./js/legal_privacy_HTML.js"></script>
+    <script src="./js/summary.js"></script>
+    <!-- styles -->
+    <link rel="icon" type="image/x-icon" href="./assets/img/favicon.svg" />
+    <link rel="stylesheet" href="./styles/sidebar.css" />
+    <link rel="stylesheet" href="./styles/legal_help_privacy.css" />
+    <link rel="stylesheet" href="./styles/header.css" />
+    <link rel="stylesheet" href="./styles/loginpage.css" />
+    <link rel="stylesheet" href="./styles/fonts.css" />
+  </head>
+  <body class="body-background" onload="initLoading()">
+    <div id="registerSuccessfullyContent"></div>
+    <div id="animationJoinLogoContainer" class="animationJoinLogo">
+      <img class="join-logo animated" src="./assets/img/join-logo.svg" alt="" />
+      <img class="join-logo-responsive animated" src="./assets/img/join-logo-white.svg" alt="" />
+    </div>
+    <div id="joinLogoContainer" class="logo-sign-up-container">
+      <img class="jlogo" src="./assets/img/join-logo.svg" alt="" />
+    </div>
+    <div id="signUpButtonHeadline" class="sign-up-button-container">
+      <p>Not a Join user?</p>
+      <p onclick="renderSignUpContent()" class="sign-up-log-in-button">Sign up</p>
+    </div>
+    <div id="contentUserValidation"></div>
+    <div id="signUpButtonResponsive" class="sign-up-button-container-responsive">
+      <p>Not a Join user?</p>
+      <p onclick="renderSignUpContent()" class="sign-up-log-in-button">Sign up</p>
+    </div>
+    <div id="loginpageDataProtectionContainer" class="loginpage-data-protection-container">
+      <span onclick="renderLogInPrivacyPolicyContent()" class="loginpage-data-protection-link">Privacy Policy</span>
+      <span onclick="renderLogInLegalNoticeContent()" class="loginpage-data-protection-link">Legal notice</span>
+    </div>
+  </body>
+</html>

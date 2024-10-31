@@ -1,0 +1,134 @@
+<!-- <!DOCTYPE html> -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Board</title>
+    <!-- Css link -->
+    <link rel="stylesheet" href="./styles/sidebar.css" />
+    <link rel="stylesheet" href="./styles/sidebar_responsive.css" />
+    <link rel="stylesheet" href="./styles/header.css" />
+    <link rel="stylesheet" href="./styles/board.css" />
+    <link rel="stylesheet" href="./styles/board_responisv.css" />
+    <link rel="stylesheet" href="./styles/legal_help_privacy.css" />
+    <link rel="icon" type="image/x-icon" href="./assets/img/favicon.svg" />
+    <link rel="stylesheet" href="./styles/fonts.css" />
+    <link rel="stylesheet" href="./styles/add_pop_up.css" />
+    <!-- main Script -->
+    <script src="./js/include.js"></script>
+    <script src="./js/header.js"></script>
+    <script src="./js/loginpage.js"></script>
+    <script src="./js/summary.js"></script>
+    <script src="./js/register.js"></script>
+    <script src="./js/legal_help_privacy.js"></script>
+    <script src="./js/help_HTML.js"></script>
+    <script src="./js/legal_privacy_HTML.js"></script>
+    <script src="./js/contacts.js"></script>
+    <script src="./js/contacts_1.js"></script> 
+    <script src="./js/add_task_data.js"></script> 
+    <script src="./js/add_tasks.js"></script>
+    <script src="./js/add_tasks1.js"></script>
+    <script src="./js/add_tasks2.js"></script>
+    <script src="./js/board_1.js"></script>
+    <script src="./js/board_2.js"></script>
+    <script src="./js/board_HTML_1.js"></script>
+    <script src="./js/board_HTML_2.js"></script>
+    <script src="./js/edite_add_task_bord_1.js"></script>
+    <script src="./js/edite_add_task_bord_2.js"></script>
+    <script src="./js/add_pop_up.js"></script>
+  </head>
+  <body onload="boardInit()" onclick="closeSubmenu()">
+  
+    <div w3-include-html="./assets/templates/header.html"></div>
+    <div id="contentJoin">
+      <div class="popUpWindow" id="popUpWindow"></div>
+      <div class="popUpWindow" id="popUpAddWindow">
+        <div class="popUpContainer">
+          <div class="addBoard" id="addBoard">
+          
+          </div>
+        </div>
+      </div>
+      <div class="tasksToDo" id="tasks">
+        <div class="searchBar">
+          <div class="searchbarIn">
+            <div class="headlineBoard">
+              <h1 class="titleBoard">Board</h1>
+              <div class="plusImgMobile" onclick="appendGeneratedAddTask()">
+                <img class="plus_add_task_mobile" src="./assets/img/plus_add_task_mobile.svg" alt="" />
+                <img class="plus_add_task_mobileHover" src="./assets/img/plus_add_task_mobileHover.svg" alt="" />
+              </div>
+            </div>
+            <div class="searchBoxLeft">
+              <div class="searchBox">
+                <div class="searchinput">
+                  <input class="src" type="text" placeholder="Find Task" name="" id="searchInput" onkeyup="searchTask()" />
+                  <div class="searchImg">
+                    <img src="./assets/img/vector.png" alt="" />
+                    <img class="board-search" src="./assets/img/board-search.png" alt="" />
+                    <img class="board-searchHover" src="./assets/img/board-searchHover.svg" alt="" />
+                  </div>
+                </div>
+              </div>
+              <div class="primaryBoard" onclick="appendGeneratedAddTask('todo')">
+                <div class="textCreateTask">Add task</div>
+                <img class="imgCheckBlack" src="./assets/img/add.svg" alt="" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="taskAria">
+          <section class="taskBoardTtle">
+            <div class="todoHeadline headLineCss" id="TodoHeadline">
+              <h2 class="progressTitles">To Do</h2>
+              <a class="imgPlusTask" href="#" onclick="appendGeneratedAddTask('todo')">
+                <img class="plusImg" src="./assets/img/imgPlusTask.svg" />
+                <img class="plusImgHover" src="./assets/img/imgPlusHover.svg" alt="" />
+              </a>
+            </div>
+            <div class="tasksCardsDiv" id="todo" ondrop="moveIt('todo')" ondragover="allowDrop(event); highlight('todo')" ondragleave="removeHighlight('todo')"></div>
+          </section>
+          <section class="taskBoardTtle">
+            <div class="inProgressHeadline headLineCss" id="inProgressHeadline">
+              <h2 class="progressTitles">In Progress</h2>
+              <a class="imgPlusTask" href="#" onclick="appendGeneratedAddTask('inProgress')">
+                <img class="plusImg" src="./assets/img/imgPlusTask.svg" />
+                <img class="plusImgHover" src="./assets/img/imgPlusHover.svg" alt="" />
+              </a>
+            </div>
+            <div
+              class="inProgress tasksCardsDiv"
+              id="inProgress"
+              ondrop="moveIt('inProgress')"
+              ondragover="allowDrop(event); highlight('inProgress')"
+              ondragleave="removeHighlight('inProgress')"
+            ></div>
+          </section>
+          <section class="taskBoardTtle">
+            <div class="awaitFeedbackHeadline headLineCss" id="awaitFeedbackHeadline">
+              <h2 class="progressTitles">Await FeedBack</h2>
+              <a class="imgPlusTask" href="#" onclick="appendGeneratedAddTask('awaitFeedback')">
+                <img class="plusImg" src="./assets/img/imgPlusTask.svg" />
+                <img class="plusImgHover" src="./assets/img/imgPlusHover.svg" alt="" />
+              </a>
+            </div>
+            <div
+              class="awaitFeedback tasksCardsDiv"
+              id="awaitFeedback"
+              ondrop="moveIt('awaitFeedback')"
+              ondragover="allowDrop(event); highlight('awaitFeedback')"
+              ondragleave="removeHighlight('awaitFeedback')"
+            ></div>
+          </section>
+          <section class="taskBoardTtle">
+            <div class="doneHeadline headLineCss" id="doneHeadline">
+              <h2 class="progressTitles">Done</h2>
+            </div>
+            <div class="done tasksCardsDiv" id="done" ondrop="moveIt('done')" ondragover="allowDrop(event); highlight('done')" ondragleave="removeHighlight('done')"></div>
+          </section>
+        </div>
+      </div>
+    </div>
+    <div w3-include-html="./assets/templates/sidebar.html"></div>
+  </body>
+</html>

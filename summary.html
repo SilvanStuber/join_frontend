@@ -1,0 +1,117 @@
+<!-- <!DOCTYPE html> -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Summary</title>
+    <!-- Css link -->
+    <link rel="stylesheet" href="./styles/sidebar.css" />
+    <link rel="stylesheet" href="./styles/sidebar_responsive.css" />
+    <link rel="stylesheet" href="./styles/summary.css " />
+    <link rel="stylesheet" href="./styles/header.css" />
+    <link rel="stylesheet" href="./styles/legal_help_privacy.css" />
+    <link rel="icon" type="image/x-icon" href="./assets/img/favicon.svg" />
+    <link rel="stylesheet" href="./styles/fonts.css" />
+    <!-- main Script -->
+    <script src="./js/include.js"></script>
+    <script src="./js/header.js"></script>
+    <script src="./js/loginpage.js"></script>
+    <script src="./js/summary.js"></script>
+    <script src="./js/register.js"></script>
+    <script src="./js/legal_help_privacy.js"></script>
+    <script src="./js/help_HTML.js"></script>
+    <script src="./js/legal_privacy_HTML.js"></script>
+    <script src="./js/contacts.js"></script>
+    <script src="./js/contacts_1.js"></script> 
+    <script src="./js/add_task_data.js"></script> 
+    <script src="./js/add_tasks.js"></script>
+    <script src="./js/add_tasks1.js"></script>
+    <script src="./js/add_tasks2.js"></script>
+    <script src="./js/board_1.js"></script>
+    <script src="./js/board_2.js"></script>
+    <script src="./js/add_pop_up.js"></script>
+  </head>
+
+  <body onload="initSummary()" onclick="closeSubmenu()">
+    <div w3-include-html="./assets/templates/sidebar.html"></div>
+    <div w3-include-html="./assets/templates/header.html"></div>
+    <div class="summary-responsive-greeting animated" id="greetingBox">
+      <div class="summary-responsive-greeting-headline">
+        <div class="summary-responsive-greeting-text" id="greetingTextResponsive"></div>
+        <div class="summary-responsive-greeting-name" id="userNameResponsive"></div>
+      </div>
+    </div>
+    <div id="contentJoin">
+      <div class="summaryMain" id="summaryMain">
+        <div class="summaryContainer">
+          <div class="summaryLeft">
+            <div class="summaryHeader">
+              <span>
+                <h1 class="summary-headline">Summary</h1>
+              </span>
+              <div class="blueLineText">
+                <div class="blueLine"></div>
+                <div class="summaryKey"><span>Key Metrics at Glance</span></div>
+                <div class="blueLineResponsive"></div>
+              </div>
+            </div>
+            <div class="summaryTaskContainer">
+              <div class="summaryTodoDone">
+                <a href="./board.html" class="toDoPanel">
+                  <div class="toDoIcon editHover">
+                    <img src="./assets/img/edit.png" alt="" />
+                  </div>
+                  <div class="toDoAmount">
+                    <div id="todosCrowd" class="taskNumber"></div>
+                    <div class="taskText">To-do</div>
+                  </div>
+                </a>
+                <a href="./board.html" class="toDoPanel">
+                  <div class="toDoIcon checkhover">
+                    <img src="./assets/img/Frame 59.png" alt="" />
+                  </div>
+                  <div class="toDoAmount">
+                    <div id="doneCrowd" class="taskNumber"></div>
+                    <div class="taskText">Done</div>
+                  </div>
+                </a>
+              </div>
+              <a href="./board.html" class="summaryUrgendDeadLine toDoPanelBig">
+                <div class="urgend">
+                  <img class="urgend-svg" src="./assets/img/pfeilerrauf.png" alt="" />
+                  <div id="urgendCrowd" class="taskNumber"></div>
+                  <div class="taskText">Urgent</div>
+                </div>
+                <div class="partingLine"></div>
+                <div class="deadline">
+                  <p class="date-summary-text" id="dateSummary"><b></b></p>
+                  <p class="deadLineText">Upcoming Deadline</p>
+                </div>
+              </a>
+              <div class="summaryTasks">
+                <a href="./board.html" class="taskspanels">
+                  <div id="tasksNumber" class="tasksNumber"></div>
+                  <div class="tasksText">Tasks in Board</div>
+                </a>
+                <a href="./board.html" class="taskspanels">
+                  <div id="tasksNumberProgress" class="tasksNumber"></div>
+                  <div class="tasksText">Tasks in Progress</div>
+                </a>
+                <a href="./board.html" class="taskspanels">
+                  <div id="tasksNumberFeedback" class="tasksNumber"></div>
+                  <div class="tasksTextFeedback">Tasks in Await Feedack</div>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="summaryRight">
+            <div class="greetin">
+              <h2 id="greetingTextSummary" class="greeting-text-summary"></h2>
+              <p id="userNameSummary" class="user-name"><b></b></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

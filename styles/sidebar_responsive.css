@@ -1,0 +1,149 @@
+body{
+    margin: 0
+}
+
+:root {   
+    --sidebarBgColorResponsiv: #2A3647;
+    --linkActiveResponsiv: #091931; 
+}
+
+.box-sizingResponsiv {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 80px;
+    justify-content: space-around;
+    position: fixed;  
+    background: var(--sidebarBgColorResponsiv);
+    z-index: 999;
+    font-family: 'Inter', sans-serif ;
+}
+
+.sidebarLinkResponsiv {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    display: flex;
+    width: 76px;
+    height: 76px;
+}
+
+.sidebarMenuTextResponsiv {
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+}
+
+.summaryBtHover{
+    display:none;
+}
+
+.sidebarCategoryResponsiv {
+    text-decoration: none;
+}
+
+.sidebarCategoryResponsiv:hover .summaryBtHover{
+    display: block;
+    display: flex;
+    border-radius: 18px;
+    width: 76px;
+    height: 76px;
+    background-color: #091931;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+} 
+
+.summaryBt{
+    display: block;
+}
+
+.sidebarCategoryResponsiv:hover .summaryBt{
+    display: none;
+} 
+
+.addTaskBtHover{
+    display:none;
+}
+
+.sidebarCategoryResponsiv:hover .addTaskBtHover{
+    display: block;
+    display: flex;
+    border-radius: 18px;
+    width: 76px;
+    height: 76px;
+    background-color: #091931;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+} 
+
+.addTaskBt{
+    display: block;
+}
+
+.sidebarCategoryResponsiv:hover .addTaskBt{
+    display: none;
+} 
+
+.boardBtHover{
+    display:none;
+}
+
+.sidebarCategoryResponsiv:hover .boardBtHover{
+    display: block;
+    display: flex;
+    border-radius: 18px;
+    width: 76px;
+    height: 76px;
+    background-color: #091931;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+} 
+
+.boardBt{
+    display: block;
+}
+
+.sidebarCategoryResponsiv:hover .boardBt{
+    display: none;
+}
+
+.contactsBtHover{
+    display:none;
+}
+
+.sidebarCategoryResponsiv:hover .contactsBtHover{
+    display: block;
+    display: flex;
+    border-radius: 18px;
+    width: 76px;
+    height: 76px;
+    background-color: #091931;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+} 
+
+.contactsBt{
+    display: block;
+}
+
+.sidebarCategoryResponsiv:hover .contactsBt{
+    display: none;
+}
+
+@media (min-width: 1000px){
+    .box-sizingResponsiv {
+      display: none;
+    }
+}
+
+@media (max-width: 1000px){
+    .box-sizing {
+      display: none;
+    }
+}

@@ -1,0 +1,135 @@
+* {
+  margin: 0;
+}
+
+.header {
+  height: 96px;
+  width: 100%;
+  display: flex;
+  position: relative;
+  top: 0;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Inter", sans-serif;
+  background: #fff;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
+}
+
+.join-logo-header {
+  position: absolute;
+  left: 20px;
+  height: 39px;
+  width: 32px;
+}
+
+.headline-header {
+  padding-left: 348px;
+}
+
+.user-profil-initials-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  padding-right: 40px;
+}
+
+.user-profil-question-mark {
+  cursor: pointer;
+}
+
+.user-profil-question-mark:hover {
+  transform: scale(1.1);
+}
+
+.user-profil-initials {
+  cursor: pointer;
+}
+
+.user-profil-initials:hover {
+  background-color: #0c2e621f;
+  border-radius: 100%;
+}
+
+.submenu-container {
+  position: absolute;
+  top: 96px;
+  right: 20px;
+  display: none;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 20px 0px 20px 20px;
+  background-color: #2a3647;
+  color: #a8a8a8;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+  width: 150px;
+  height: 158px;
+  padding: 10px;
+  transform: translateX(500px);
+  transition: all 225ms ease-in-out;
+  z-index: 1000;
+}
+
+.show-submenu {
+  transform: translateX(0);
+}
+
+.submenu-text {
+  display: flex;
+  text-decoration: none;
+  color: #a8a8a8;
+  width: 130px;
+  padding-left: 16px;
+  padding-right: 8px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  align-items: center;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.submenu-text:hover {
+  background-color: #2a3d59;
+}
+
+.d-none {
+  display: none;
+}
+
+@media (max-width: 800px) {
+  .headline-header {
+    display: none;
+  }
+
+  .user-profil-initials-container {
+    position: absolute;
+    right: 20px;
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 1000px) {
+  header {
+    height: 80px;
+  }
+
+  .user-profil-question-mark {
+    display: none;
+  }
+
+  .submenu-container {
+    top: 80px;
+  }
+
+  .user-profil-initials {
+    height: 40px;
+    width: 40px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .join-logo-header {
+    display: none;
+  }
+}
