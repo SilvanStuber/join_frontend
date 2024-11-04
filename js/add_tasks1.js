@@ -19,7 +19,7 @@ function getCategoryPriorityColor(category) {
 /**
  * Saves task-related data values to local storage
  */
-function save() {
+async function save() {
   localStorage.setItem("taskStatus", JSON.stringify(taskStatus));
   localStorage.setItem("currentId", JSON.stringify(currentId));
   localStorage.setItem("title", JSON.stringify(title));
