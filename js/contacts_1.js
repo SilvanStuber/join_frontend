@@ -56,7 +56,7 @@ async function saveContact(event, i) {
  */
 function validateValueOfContacts(newName) {
   for (let i = 0; i < contacts.length; i++) {
-    let nameContacts = contacts[i][0];
+    let nameContacts = contacts[i].name;
     if (nameContacts === newName) {
       return i;
     }
@@ -111,10 +111,10 @@ function displayContacts(contact, index, firstname, surname) {
               </div>
               <div class="contact-info-right">
                   <div class="contact-info-name" id="contact-info-name-${index}">
-                      ${contact[0]}
+                      ${contact.name}
                   </div>
                   <div class="contact-info-mail" id="contact-info-mail-${index}">
-                      ${contact[1]}
+                      ${contact.email}
                   </div>
               </div>
             </div>`;

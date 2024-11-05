@@ -71,7 +71,7 @@ function renderTask() {
  */
 function renderContactsAddTask(i, contactsList) {
   let contact = contacts[i];
-  let name = contact[0];
+  let name = contact.name;
   let firstname = name.split(" ")[0][0].toUpperCase();
   let surname = name.split(" ")[1][0].toUpperCase();
   let contactElement = document.createElement("li");
@@ -160,7 +160,7 @@ function handleContactSearch() {
   let contacts = document.getElementsByClassName("contactList");
   for (let i = 0; i < contacts.length; i++) {
     let contact = contacts[i];
-    let nameElement = contact.getElementsByClassName("nameContact")[0];
+    let nameElement = contact.getElementsByClassName("nameContact").name;
     let txtValue = nameElement.textContent || nameElement.innerText;
     contact.style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none";
   }
@@ -178,7 +178,7 @@ function displayAvatar(selectedContacts, contacts) {
   for (let i = 0; i < selectedContacts.length; i++) {
     let selectedIndex = selectedContacts[i];
     let contact = contacts[selectedIndex];
-    let name = contact[0];
+    let name = contact.name;
     let firstname = name.split(" ")[0][0].toUpperCase();
     let surname = name.split(" ")[1][0].toUpperCase();
     let currentContactContent = generateAvatarAddTask(selectedIndex, contact, firstname, surname);
@@ -313,7 +313,7 @@ function updateArrays(newTask) {
  * Sends a new task to the backend API.
  */
 async function postToBackend(newTask) {
-  const taskData = await generateDataToBackende(newTask);
+  const taskData = await generateDataToBackendTasks(newTask);
   await fetch("http://127.0.0.1:8000/api/tasks/", {
     method: "POST",
     headers: {
@@ -326,7 +326,7 @@ async function postToBackend(newTask) {
 /**
  * Generates task data to be sent to the backend.
  */
-async function generateDataToBackende(newTask) {
+async function generateDataToBackendTasks(newTask) {
   return {
     title: newTask.title,
     task_status: newTask.taskStatus,

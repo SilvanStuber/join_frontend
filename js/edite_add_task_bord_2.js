@@ -86,7 +86,7 @@ function displayAvatarEditBoart(selecetContactsEdit, contacts, colors) {
   for (let i = 0; i < selecetContactsEdit.length; i++) {
     let selectedIndexBoar = selecetContactsEdit[i];
     let contact = contacts[selectedIndexBoar];
-    let name = contact[0];
+    let name = contact.name;
     let firstnameBoard = name.split(" ")[0][0].toUpperCase();
     let surnameBoard = name.split(" ")[1][0].toUpperCase();
     let currentContactContentBoard = generateAvatarAddTaskBoard(selectedIndexBoar, contact, firstnameBoard, surnameBoard);
@@ -151,7 +151,7 @@ function validationContactsCheckedEdit(i, liElementEdit, nameElementEdit, labelE
  */
 function renderContactsAddTaskBoard(i, contactsList) {
   let contact = contacts[i];
-  let nameEdit = contact[0];
+  let nameEdit = contact.name;
   let firstnameBoard = nameEdit.split(" ")[0][0].toUpperCase();
   let surnameBoard = nameEdit.split(" ")[1][0].toUpperCase();
   let contactElement = document.createElement("li");
@@ -181,8 +181,8 @@ function addCheckboxChangeListener(i, contactsList) {
  */
 function sortContactsBoard() {
   contacts.sort((a, b) => {
-    let nameA = a[0].toUpperCase();
-    let nameB = b[0].toUpperCase();
+    let nameA = a.name.toUpperCase();
+    let nameB = b.name.toUpperCase();
     if (nameA < nameB) return -1;
     if (nameA > nameB) return 1;
     return 0;
@@ -213,7 +213,7 @@ function handleContactSearchEdit() {
   let contacts = document.getElementsByClassName("contactListBoard");
   for (let i = 0; i < contacts.length; i++) {
     let contact = contacts[i];
-    let nameElement = contact.getElementsByClassName("nameContact")[0];
+    let nameElement = contact.getElementsByClassName("nameContact").name;
     let txtValue = nameElement.textContent || nameElement.innerText;
     if (txtValue.toUpperCase().indexOf(filter) > -1) {
       contact.style.display = "";
@@ -251,7 +251,7 @@ function validateAssignedContacts(taskId) {
   for (let i = 0; i < assignedCardEdited.length; i++) {
     let contactCardEdited = assignedCardEdited[i];
     for (let c = 0; c < contacts.length; c++) {
-      const contactFromArray = contacts[c][0];
+      const contactFromArray = contacts[c].name;
       if (contactFromArray === contactCardEdited) {
         setCheckedToAssigned(c);
       }

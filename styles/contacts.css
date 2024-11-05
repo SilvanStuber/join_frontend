@@ -119,6 +119,7 @@ hr {
   border-radius: 9px;
   width: 90%;
   margin-top: 24px;
+  margin-bottom: 12px;
   height: 42px;
   font-size: 15px;
   font-weight: 600;
@@ -685,7 +686,7 @@ hr {
   font-size: 15px;
 }
 
-.textNameInput-contacts{
+.textNameInput-contacts {
   font-size: 10px;
   color: #ff8190;
   margin-left: 3px;
@@ -1309,7 +1310,7 @@ hr {
   .inputField {
     width: 86vw;
   }
-  
+
   .nameIdEdit {
     font-size: 40px;
   }

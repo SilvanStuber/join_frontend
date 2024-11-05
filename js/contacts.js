@@ -1,13 +1,4 @@
-let contacts = [
-  ["Marcel Bauer", "bauer@gmail.com", "00418625946382"],
-  ["Anton Mayer", "antom@gmail.com", "00411111111111"],
-  ["Anja Schulz", "schulz@hotmail.com", "00412222222222"],
-  ["Benedikt Ziegler", "benedikt@gmail.com", "00493333333333"],
-  ["David Eisenberg", "davidberg@gmail.com", "00491283297489"],
-  ["Eva Fischer", "eva@gmail.com", "00492825594867"],
-  ["Emmanuel Mauer", "emmanuelma@gmail.com", "00495890487384"],
-  ["Tatjana Wolf", "wolf@gmail.com", "00497362836981"],
-];
+let contacts = [];
 
 const colors = ["#9227FE", "#3BDBC7", "#FD81FF", "#FFBB2A", "#6E52FF", "#169857", "#6B5E5F", "#FF7915", "#9227FE", "#3BDBC7", "#FD81FF", "#FFBB2A", "#6E52FF", "#169857", "#6B5E5F", "#FF7915"];
 let selectedContactIndex = null;
@@ -35,7 +26,7 @@ async function contactsInit() {
 async function renderContacts() {
   await loadContactsFromServer();
   contacts.sort(function (a, b) {
-    return a[0].localeCompare(b[0]);
+    return a.name.localeCompare(b.name);
   });
   showContacts();
 }
@@ -69,11 +60,28 @@ async function getItemContacts(key) {
  * @returns {void} A promise that resolves when the data is loaded and processed.
  */
 async function loadContactsFromServer() {
-  try {
-    contacts = JSON.parse(await getItemContacts("contacts"));
-  } catch (e) {
-    console.error("Loading error:", e);
+  const response = await fetch("http://127.0.0.1:8000/api/user_contacts/", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (response.ok) {
+    await pushContactDataToArray(response);
+  } else {
+    console.error("Error loading contacts:", response.statusText);
   }
+}
+
+async function pushContactDataToArray(response) {
+  const data = await response.json();
+  data.forEach((contact) => {
+    contacts.push({
+      name: contact.name,
+      email: contact.email,
+      phone: contact.phone,
+    });
+  });
 }
 
 /**
@@ -83,7 +91,13 @@ async function loadContactsFromServer() {
  */
 async function saveContactsToServer(newContact) {
   contacts.push(newContact);
-  await setItemContacts("contacts", JSON.stringify(contacts));
+  await fetch("http://127.0.0.1:8000/api/user_contacts/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newContact),
+  });
 }
 
 /**
@@ -105,14 +119,15 @@ function showContacts() {
   contactsdiv.innerHTML = "";
   let currentLetter = "";
   for (let i = 0; i < contacts.length; i++) {
-    let name = contacts[i][0];
+    let name = contacts[i].name;
     let firstname = name[0].toUpperCase();
     let names = name.split(" ");
     let surname = names[1].toUpperCase().charAt(0);
-    if (firstname !== currentLetter) {
+    /*    if (firstname !== currentLetter) {
+      console.log("teeetet", firstname);
       contactsdiv.innerHTML += `<div class="group-header">${firstname}</div><hr>`;
       currentLetter = firstname;
-    }
+    } */
     contactsdiv.innerHTML += displayContacts(contacts[i], i, firstname, surname);
   }
 }
@@ -168,9 +183,9 @@ function fillOnclickDiv(i) {
  * @returns {void} This function does not return any value.
  */
 function displayContactInfo(i, firstname, surname) {
-  let name = (document.getElementById("nameCard").innerHTML = `${contacts[i][0]}`);
-  let email = (document.getElementById("emailCard").innerHTML = `<div class="head-info"> Email </div><div class="main-info-mail">${contacts[i][1]}</div>`);
-  let phone = (document.getElementById("phoneCard").innerHTML = `<div class="head-info"> Phone </div><div class="main-info"> ${contacts[i][2]}</div>`);
+  let name = (document.getElementById("nameCard").innerHTML = `${contacts[i].name}`);
+  let email = (document.getElementById("emailCard").innerHTML = `<div class="head-info"> Email </div><div class="main-info-mail">${contacts[i].email}</div>`);
+  let phone = (document.getElementById("phoneCard").innerHTML = `<div class="head-info"> Phone </div><div class="main-info"> ${contacts[i].phone}</div>`);
   let circle = document.getElementById("circleCard");
   circle.innerHTML = `<p class="nameId">${firstname}${surname}</p>`;
   circle.style = `background-color: ${colors[i]};`;
@@ -267,7 +282,11 @@ async function createContact(event) {
   if (!validateInput(userName, userEmail, userPhone)) {
     return;
   } else {
-    let newContact = [userName, userEmail, userPhone];
+    let newContact = {
+      name: userName,
+      email: userEmail,
+      phone: userPhone,
+    };
     await saveContactsToServer(newContact);
     sortContacts();
     renderContacts();
@@ -299,7 +318,7 @@ function validateInput(userName) {
  */
 function sortContacts() {
   contacts.sort(function (a, b) {
-    return a[0].localeCompare(b[0]);
+    return a.name.localeCompare(b.name);
   });
 }
 
