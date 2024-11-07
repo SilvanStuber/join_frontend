@@ -2,6 +2,7 @@ let contacts = [];
 
 const colors = ["#9227FE", "#3BDBC7", "#FD81FF", "#FFBB2A", "#6E52FF", "#169857", "#6B5E5F", "#FF7915", "#9227FE", "#3BDBC7", "#FD81FF", "#FFBB2A", "#6E52FF", "#169857", "#6B5E5F", "#FF7915"];
 let selectedContactIndex = null;
+let idContactFromBackend = null;
 
 /**
  * Initializes the contacts module.
@@ -73,10 +74,15 @@ async function loadContactsFromServer() {
   }
 }
 
+/**
+ * Push Data to Array
+ */
 async function pushContactDataToArray(response) {
+  contacts = [];
   const data = await response.json();
   data.forEach((contact) => {
     contacts.push({
+      id: contact.pk,
       name: contact.name,
       email: contact.email,
       phone: contact.phone,
@@ -91,13 +97,24 @@ async function pushContactDataToArray(response) {
  */
 async function saveContactsToServer(newContact) {
   contacts.push(newContact);
-  await fetch("http://127.0.0.1:8000/api/user_contacts/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(newContact),
-  });
+  try {
+    const response = await fetch("http://127.0.0.1:8000/api/user_contacts/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newContact),
+    });
+    if (response.ok) {
+      const data = await response.json();
+      const pk = data.pk;
+      return pk;
+    } else {
+      console.error("Fehler beim Speichern des Kontakts:", response.statusText);
+    }
+  } catch (error) {
+    console.error("Netzwerkfehler:", error);
+  }
 }
 
 /**
@@ -151,18 +168,18 @@ function resetSelectedContact() {
  * @param {Event} event - The event object representing the user interaction.
  * @returns {void} This function does not return any value.
  */
-function selectContact(i, firstname, surname, event) {
+function selectContact(idContact, i, firstname, surname, event) {
   document.getElementById("editContact").classList.add("d-none");
   document.getElementById("editContactBackground").classList.add("d-none");
   resetSelectedContact();
   document.getElementById(`contact-info-${i}`).style = "background-color: #293647; color: white";
   selectedContactIndex = i;
-  showCard(i, firstname, surname);
+  showCard(i, firstname, surname, idContact);
   document.getElementById("contact-details").classList.remove("hide-mobile-397px");
   document.getElementById("contact-list").classList.add("hide-mobile-397px");
   document.getElementById("button-add-contact-mobile").style = "display: none";
   document.getElementById("button-edit-contact-mobile").style = "display: block";
-  fillOnclickDiv(i);
+  fillOnclickDiv(i, idContact);
 }
 
 /**
@@ -170,9 +187,9 @@ function selectContact(i, firstname, surname, event) {
  * @param {number} i - The index of the selected contact in the 'contacts' array.
  * @returns {void} This function does not return any value.
  */
-function fillOnclickDiv(i) {
+function fillOnclickDiv(i, idContact) {
   document.getElementById("onclickDiv").innerHTML = `
-    <img class="image-edit-contact-mobile" src="./assets/img/more_vert.png" onclick="openMiniPopup(${i})">`;
+    <img class="image-edit-contact-mobile" src="./assets/img/more_vert.png" onclick="openMiniPopup(${i}, ${idContact})">`;
 }
 
 /**
@@ -201,12 +218,12 @@ function displayContactInfo(i, firstname, surname) {
  * @param {number} i - The index of the contact in the 'contacts' array.
  * @returns {void} This function does not return any value.
  */
-function updateContactView(i) {
+function updateContactView(i, idContact) {
   document.getElementById("addContact").classList.add("d-none");
   document.getElementById("addContactBackground").classList.add("d-none");
   document.getElementById("contactCard").classList.remove("d-none");
   document.getElementById("contactCard").classList.add("slide-left");
-  document.getElementById("buttonsCard").innerHTML = generateButtonHTML(i);
+  document.getElementById("buttonsCard").innerHTML = generateButtonHTML(i, idContact);
 }
 
 /**
@@ -216,9 +233,9 @@ function updateContactView(i) {
  * @param {string} surname - The surname of the contact.
  * @returns {void} This function does not return any value.
  */
-function showCard(i, firstname, surname) {
+function showCard(i, firstname, surname, idContact) {
   displayContactInfo(i, firstname, surname);
-  updateContactView(i);
+  updateContactView(i, idContact);
 }
 
 function hoverEdit(element, isHover) {
@@ -287,13 +304,13 @@ async function createContact(event) {
       email: userEmail,
       phone: userPhone,
     };
-    await saveContactsToServer(newContact);
+    idContactFromBackend = await saveContactsToServer(newContact);
     sortContacts();
     renderContacts();
     closeAddContact();
     clearInputFields();
     let newIndex = contacts.findIndex((contact) => contact === newContact);
-    selectContact(newIndex, userName[0].toUpperCase(), userName.split(" ")[1].toUpperCase().charAt(0));
+    selectContact(idContactFromBackend, newIndex, userName[0].toUpperCase(), userName.split(" ")[1].toUpperCase().charAt(0));
     showSuccessMessageBasedOnScreen();
   }
 }
@@ -403,13 +420,13 @@ function addNewContact() {
  * @param {number} i - The index of the contact to be edited in the 'contacts' array.
  * @returns {void} This function does not return any value.
  */
-function editContact(i) {
+function editContact(i, idContact) {
   document.getElementById("contactCard").classList.add("d-none");
   document.getElementById("editContact").classList.remove("d-none");
   document.getElementById("editContactBackground").classList.remove("d-none");
   document.getElementById("editContact").classList.add("slide-left");
-  document.getElementById("formDiv").innerHTML = generateFormDivHTML(i);
-  document.getElementById("userNameEdit").value = `${contacts[i][0]}`;
-  document.getElementById("userEmailEdit").value = `${contacts[i][1]}`;
-  document.getElementById("userPhoneEdit").value = `${contacts[i][2]}`;
+  document.getElementById("formDiv").innerHTML = generateFormDivHTML(i, idContact);
+  document.getElementById("userNameEdit").value = `${contacts[i].name}`;
+  document.getElementById("userEmailEdit").value = `${contacts[i].email}`;
+  document.getElementById("userPhoneEdit").value = `${contacts[i].phone}`;
 }
