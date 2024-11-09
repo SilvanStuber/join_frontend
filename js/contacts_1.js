@@ -14,7 +14,6 @@ function render_contactsHtml() {
  */
 async function deleteContact(event, i, contactId) {
   deleteContactFromServer(contactId);
-  /*   contacts.splice(i, 1); */
   await setItemContacts("contacts", JSON.stringify(contacts));
   renderContacts();
   document.getElementById("contactCard").classList.add("d-none");
@@ -81,7 +80,7 @@ async function updateContactOnServer(editedContact, idContacts) {
     phone: editedContact[2],
   };
   await fetch(`http://127.0.0.1:8000/api/user_contacts/${idContacts}/`, {
-    method: "PUT", // Use PATCH if you want to partially update the contact
+    method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },

@@ -43,7 +43,6 @@ async function addTaskInit() {
   await loadUserData();
   await loadContactsFromServer();
   setInitialsInTheHeader();
-  load();
   renderTask();
   removeStyleSidebar();
   addTextColor();
@@ -343,7 +342,6 @@ async function generateDataToBackendTasks(newTask) {
  * Saves date, render tasks, resets the element and clears category, selectes contacts and contact avatars
  */
 function saveRenderAndReset() {
-  save();
   renderTask();
   clearPrioActiveClass();
   removePrioActiveClass();

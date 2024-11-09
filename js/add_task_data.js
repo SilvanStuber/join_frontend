@@ -1,4 +1,5 @@
-let tasks = [
+let tasks = [];
+let tasksOld = [
   {
     id: 1,
     title: "Daily Kochwelt Recipe",

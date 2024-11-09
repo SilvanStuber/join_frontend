@@ -5,6 +5,8 @@ let newSubs = [];
 let subtaskRendering = [];
 let editSubs = [];
 let subtaskIndex = 0;
+let tasksIdFromServer;
+let editedTask;
 
 /**
  * Edits the large card based on the given taskId.
@@ -118,6 +120,7 @@ function displayAssignedContacts(assignedContacts) {
  * @param {string} taskId - The ID of the task to be saved.
  */
 function saveEditTaskBoard(taskId) {
+  tasksIdFromServer = taskId;
   const foundTask = findTaskById(taskId);
   let status = getStatusTaskId(taskId);
   let selectedPriorityBoard = document.querySelector(".priorityUrgent-active, .priorityMedium-active, .priorityLow-active");
@@ -137,7 +140,7 @@ function saveEditTaskBoard(taskId) {
  * Loads a new board based on the specified parameters, handling task assignment and updating the task's status and priority.
  * If no tasks are currently assigned, it reverts to a previously saved assignment state. It then generates an edited version
  * of the task with the new parameters, saves the task's completion status based on its priority, and initializes the board state.
- * 
+ *
  * @param {string} taskId - The unique identifier for the task to be loaded.
  * @param {object} foundTask - The task object found that needs to be edited.
  * @param {string} status - The new status to be assigned to the task.
@@ -166,7 +169,7 @@ function loadNewBoard(taskId, foundTask, status, priorityContentBoard, selectedP
  */
 function generateEditedTask(foundTask, taskId, status, selectedPriorityIDBoard, priorityContentBoard, assigned, category) {
   if (foundTask) {
-    const editedTask = {
+    editedTask = {
       id: taskId,
       title: document.getElementById("editTitle").value,
       description: document.getElementById("editDescription").value,
@@ -360,4 +363,31 @@ function createIconsContainerWhenEdit(subtaskItemDiv, subtaskText, index) {
   iconsContainerWhenEdit.appendChild(check);
   check.addEventListener("click", () => handleCheckClick(subtaskItemDiv, iconsContainerWhenEdit, subtaskText));
   return iconsContainerWhenEdit;
+}
+
+async function save() {
+  let newEditedTasks = await pushNewTasksDataToArray();
+  await fetch(`http://127.0.0.1:8000/api/tasks/${tasksIdFromServer}/`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newEditedTasks),
+  });
+}
+
+/**
+ * Push Data to Array
+ */
+async function pushNewTasksDataToArray() {
+  return {
+    title: editedTask.title,
+    task_status: editedTask.taskStatus,
+    description: editedTask.description,
+    assigned: editedTask.assigned,
+    due_date: editedTask.dueDate,
+    priority_content: editedTask.priorityID,
+    sub_tasks: editedTask.subtasks,
+    category: editedTask.category,
+  };
 }

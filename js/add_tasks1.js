@@ -17,41 +17,6 @@ function getCategoryPriorityColor(category) {
 }
 
 /**
- * Saves task-related data values to local storage
- */
-async function save() {
-  localStorage.setItem("taskStatus", JSON.stringify(taskStatus));
-  localStorage.setItem("currentId", JSON.stringify(currentId));
-  localStorage.setItem("title", JSON.stringify(title));
-  localStorage.setItem("description", JSON.stringify(description));
-  localStorage.setItem("assigned", JSON.stringify(assigned));
-  localStorage.setItem("dueDate", JSON.stringify(dueDate));
-  localStorage.setItem("priorityContentArray", JSON.stringify(priorityContentArray));
-  localStorage.setItem("subtasks", JSON.stringify(subtasks));
-  localStorage.setItem("tasks", JSON.stringify(tasks));
-  localStorage.setItem("category", JSON.stringify(category));
-  localStorage.setItem("subT", JSON.stringify(subT));
-}
-
-/**
- * Loads task values/data from local storage in to variables
- */
-function load() {
-  let taskStautsAsText = localStorage.getItem("taskStatus");
-  let idAsText = localStorage.getItem("currentId");
-  let titleAsText = localStorage.getItem("title");
-  let descriptionAsText = localStorage.getItem("description");
-  let assignedAsText = localStorage.getItem("assigned");
-  let dueDateAsText = localStorage.getItem("dueDate");
-  let priorityContentArrayText = localStorage.getItem("priorityContentArray");
-  let subtaskAsText = localStorage.getItem("subtasks");
-  let tasksAsText = localStorage.getItem("tasks");
-  let categoryAsText = localStorage.getItem("category");
-  let subTAsText = localStorage.getItem("subT");
-  setToVariable(taskStautsAsText, idAsText, titleAsText, descriptionAsText, assignedAsText, dueDateAsText, priorityContentArrayText, subtaskAsText, tasksAsText, categoryAsText, subTAsText);
-}
-
-/**
  * Sets loaded data from local storage to corresponding variables.
  *
  * @param {string} taskStautsAsText - Task status data as text from local storage.
@@ -352,7 +317,6 @@ function selectCategory(clickedElement) {
     category = [];
     category.unshift(selectText);
     category.push(categorySelect);
-    save();
     taskCategory.querySelector("p").textContent = selectText;
   }
 }

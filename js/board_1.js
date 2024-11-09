@@ -17,9 +17,9 @@ let subtaskLevel = [
  * Initializes the board and performs necessary setup tasks.
  */
 async function boardInit() {
+  await load();
   await includeHTML();
   await loadContactsFromServer();
-  load();
   loadUserData();
   setInitialsInTheHeader();
   loadStateOfSubTask();
@@ -30,6 +30,47 @@ async function boardInit() {
   updateHtml();
   renderSmallContats();
   renderProgressbar();
+}
+
+/**
+ * Loads contacts data from the server and updates the local 'contacts' array.
+ * @throws {string} Throws an error if loading contacts data fails.
+ * @returns {void} A promise that resolves when the data is loaded and processed.
+ */
+async function load() {
+  const response = await fetch("http://127.0.0.1:8000/api/tasks/", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (response.ok) {
+    await pushTasksDataToArray(response);
+  } else {
+    console.error("Error loading contacts:", response.statusText);
+  }
+}
+
+/**
+ * Push Data to Array
+ */
+async function pushTasksDataToArray(response) {
+  tasks = [];
+  const data = await response.json();
+  data.forEach((task) => {
+    tasks.push({
+      id: task.pk,
+      title: task.title,
+      description: task.description,
+      dueDate: task.due_date,
+      assigned: task.assigned,
+      priorityID: task.priority_content,
+      subtasks: task.sub_tasks,
+      taskStatus: task.task_status,
+      category: task.category,
+    });
+  });
+  console.log("ojodjjdoji", tasks);
 }
 
 /**
