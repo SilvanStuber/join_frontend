@@ -312,7 +312,10 @@ function updateArrays(newTask) {
  * Sends a new task to the backend API.
  */
 async function postToBackend(newTask) {
-  const taskData = await generateDataToBackendTasks(newTask);
+  const subTaskData = await pushSubTaskToArray(newTask);
+  const taskData = await generateDataToBackendTasks(newTask, subTaskData);
+  console.log("ijdiodo", taskData);
+  debugger;
   await fetch("http://127.0.0.1:8000/api/tasks/", {
     method: "POST",
     headers: {
@@ -322,10 +325,26 @@ async function postToBackend(newTask) {
   });
 }
 
+function pushSubTaskToArray(newTask) {
+  let returnData = [];
+  if (newTask.subtasks.length === 0) {
+    return;
+  } else {
+    newTask.subtasks.forEach((subTask) => {
+      let data = {
+        description: subTask,
+        completed: false,
+      };
+      returnData.push(data);
+    });
+  }
+  return returnData;
+}
+
 /**
  * Generates task data to be sent to the backend.
  */
-async function generateDataToBackendTasks(newTask) {
+async function generateDataToBackendTasks(newTask, subTaskData) {
   return {
     title: newTask.title,
     task_status: newTask.taskStatus,
@@ -333,7 +352,7 @@ async function generateDataToBackendTasks(newTask) {
     assigned: assigned,
     due_date: newTask.dueDate,
     priority_content: newTask.priorityID,
-    sub_tasks: newTask.subtasks,
+    sub_tasks: subTaskData,
     category: newTask.category,
   };
 }

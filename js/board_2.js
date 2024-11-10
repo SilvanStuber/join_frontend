@@ -52,7 +52,7 @@ function renderSmallContats() {
     let totalAssigned = assigned.length;
     renderContentUserLargeCard(assigned, idTask, contactsSmallCard, maxContactsToShow, totalAssigned);
     if (totalAssigned > maxContactsToShow) {
-      contactsSmallCard.innerHTML += generateManyContactsSmalCard(totalAssigned, maxContactsToShow);
+      contactsSmallCard.innerHTML += generateManyContactsSmal(totalAssigned, maxContactsToShow);
     }
   }
 }

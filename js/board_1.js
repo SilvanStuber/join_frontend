@@ -29,7 +29,6 @@ async function boardInit() {
   document.getElementById("sidebarCategoryBorard").classList.add("sidebarCategoryLinkActive");
   updateHtml();
   renderSmallContats();
-  renderProgressbar();
 }
 
 /**
@@ -104,18 +103,21 @@ function updateHtmlForStatus(taskStatus, elementId) {
 /**
  * Renders the progress bar based on the subtask levels.
  */
-function renderProgressbar() {
-  for (let i = 0; i < subtaskLevel.length; i++) {
-    if (subtaskLevel) {
-      let taskId = subtaskLevel[i]["taskId"];
-      let percentageCompleted = subtaskLevel[i]["percentageCompleted"];
-      let valueOfTheSubtaskBreak = subtaskLevel[i]["valueOfTheSubtaskBreak"];
-      const smallProgressDiv = document.getElementById(`smallProgress-${taskId}`);
-      smallProgressDiv.textContent = `${valueOfTheSubtaskBreak}`;
-      let progressBar = document.getElementById(`progress-${taskId}`);
-      progressBar.style.width = `${percentageCompleted}%`;
+function renderProgressbar(task) {
+  let progressBar;
+  let numberOfCompleted = 0;
+  let percentOfProgressbar = 0;
+  task.subtasks.forEach((subTask) => {
+    if (subTask.completed === true) {
+      numberOfCompleted++;
     }
-  }
+  });
+  percentOfProgressbar = (task.subtasks.length / numberOfCompleted) * 10;
+  console.log("ssss", percentOfProgressbar);
+  setTimeout(() => {
+    progressBar = document.getElementById(`progress-${task.id}`);
+    progressBar.style.width = `${percentOfProgressbar}%`;
+  }, 100);
 }
 
 /**
@@ -180,6 +182,7 @@ function generateSelectedPriorityContent(currenCategory, clonedContentDiv, taskI
   });
   let smallProgressDiv = "";
   if (task.subtasks.length > 0) {
+    renderProgressbar(task);
     smallProgressDiv = generateProgressBar(task.id, task.subtasks.length);
   }
   return generateSmallCardHTML(task, className, clonedContentDiv, smallProgressDiv, i, taskID);
@@ -188,11 +191,13 @@ function generateSelectedPriorityContent(currenCategory, clonedContentDiv, taskI
 /**
  * Deletes a task based on the event triggered by the user.
  */
-function deleteTask(id) {
-  let index = validateIndexFromTask(id);
-  deleteLevelOfSubtask(index);
-  tasks.splice(index, 1);
-  save();
+async function deleteTask(id) {
+  await fetch(`http://127.0.0.1:8000/api/tasks/${id}/`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
   updateHtml();
   closeCard();
 }
@@ -215,7 +220,6 @@ function moveIt(taskStatus) {
     tasks[taskIndex].taskStatus = taskStatus;
     updateHtml();
     save();
-    renderProgressbar();
     renderSmallContats();
   }
 }
@@ -273,21 +277,6 @@ function renderSubtaskState(task) {
   for (let i = 0; i < subTask.length; i++) {
     let renderTaskId = `checkbox-${taskId}-${i}`;
     let indexTaskId = getTaskId(renderTaskId);
-    validateSubtask(indexTaskId, renderTaskId);
-  }
-}
-
-/**
- * Validates a subtask based on its index and updates its checkbox state.
- * @param {number} indexTaskId - The index of the subtask.
- * @param {string} renderTaskId - The ID of the HTML element associated with the subtask.
- */
-function validateSubtask(indexTaskId, renderTaskId) {
-  let checkboxRenderTaskId = document.getElementById(renderTaskId);
-  if (indexTaskId === -1) {
-    checkboxRenderTaskId.checked = false;
-  } else {
-    checkboxRenderTaskId.checked = true;
   }
 }
 
