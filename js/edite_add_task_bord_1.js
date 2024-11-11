@@ -29,7 +29,6 @@ function editLargCard(taskId) {
   edittaskArea(taskId);
   renderEditTask();
   saveUneditedAssigned(taskId);
-  loadEdit();
   setColorButtonResponsiveWorkStep(taskId);
 }
 
@@ -42,16 +41,6 @@ function setColorButtonResponsiveWorkStep(taskId) {
   let task = tasks[index];
   let taskStatus = task["taskStatus"];
   changeColorButtonResponsiveWorkStep(taskStatus);
-}
-
-/**
- * Loads tasks from local storage and updates the tasks array.
- */
-function loadEdit() {
-  const storedTasks = localStorage.getItem("tasks");
-  if (storedTasks) {
-    tasks = JSON.parse(storedTasks);
-  }
 }
 
 /**
@@ -195,7 +184,6 @@ function generateEditedTask(foundTask, taskId, status, selectedPriorityIDBoard, 
  * @param {string} priorityContentBoard - The priority content for the revised task completion.
  */
 function saveRevisedTaskCompletion(priorityContentBoard) {
-  localStorage.setItem("selectedPriorityContent", priorityContentBoard);
   load();
   updateHtml();
   closeCard();
@@ -238,19 +226,6 @@ function deleteSubs(index) {
 }
 
 /**
- * Deletes a subtask by its ID from the stateOfTask array.
- * @param {string} id - The ID of the subtask to be deleted.
- */
-function deleteSubTaskById(id) {
-  const index = stateOfTask.findIndex((item) => item === id);
-  if (index !== 0) {
-    stateOfTask.splice(index, 1);
-    let idAtText = JSON.stringify(stateOfTask);
-    localStorage.setItem("id", idAtText);
-  }
-}
-
-/**
  * Adds a subtask to the subtasks array during task editing.
  */
 function addSubtasksEdit() {
@@ -260,7 +235,11 @@ function addSubtasksEdit() {
   } else {
     subtasks = [];
     document.getElementById("inputSubtasksEdit").value = "";
-    oldSubs.push(subtaskInput);
+    let newSubtaskData = {
+      description: subtaskInput,
+      completed: false,
+    };
+    oldSubs.push(newSubtaskData);
     displaySubtasks();
     save();
   }

@@ -1,17 +1,4 @@
 let draggedElementId;
-let stateOfTask = ["checkbox-2-0", "checkbox-2-1", "checkbox-3-1"];
-let subtaskLevel = [
-  {
-    taskId: 2,
-    percentageCompleted: 100,
-    valueOfTheSubtaskBreak: "2/2",
-  },
-  {
-    taskId: 3,
-    percentageCompleted: 50,
-    valueOfTheSubtaskBreak: "1/2",
-  },
-];
 
 /**
  * Initializes the board and performs necessary setup tasks.
@@ -22,8 +9,6 @@ async function boardInit() {
   await loadContactsFromServer();
   loadUserData();
   setInitialsInTheHeader();
-  loadStateOfSubTask();
-  loadLevelOfSubtask();
   removeStyleSidebar();
   addTextColor();
   document.getElementById("sidebarCategoryBorard").classList.add("sidebarCategoryLinkActive");
@@ -55,6 +40,7 @@ function updateHtmlForStatus(taskStatus, elementId) {
     for (let i = 0; i < tasksByStatus.length; i++) {
       const task = tasksByStatus[i];
       element.innerHTML += generateSmallCard(task, i);
+      renderProgressbar(task);
     }
   }
 }
@@ -66,12 +52,21 @@ function renderProgressbar(task) {
   let progressBar = 0;
   let numberOfCompleted = 0;
   let percentOfProgressbar = 0;
-  task.subtasks.forEach((subTask) => {
-    if (subTask.completed === true) {
-      numberOfCompleted++;
-    }
-  });
-  percentOfProgressbar = (numberOfCompleted / task.subtasks.length) * 100;
+  if (task) {
+    task.subtasks.forEach((subTask) => {
+      if (subTask.completed === true) {
+        numberOfCompleted++;
+      }
+    });
+    percentOfProgressbar = (numberOfCompleted / task.subtasks.length) * 100;
+    setContentToProgressbar(task, progressBar, numberOfCompleted, percentOfProgressbar);
+  }
+}
+
+/**
+ * Set content to Progressbar.
+ */
+function setContentToProgressbar(task, progressBar, numberOfCompleted, percentOfProgressbar) {
   setTimeout(() => {
     document.getElementById(`smallProgress-${task.id}`).innerHTML = `${numberOfCompleted}/${task.subtasks.length}`;
     progressBar = document.getElementById(`progress-${task.id}`);
@@ -141,7 +136,6 @@ function generateSelectedPriorityContent(currenCategory, clonedContentDiv, taskI
   });
   let smallProgressDiv = "";
   if (task.subtasks.length > 0) {
-    renderProgressbar(task);
     smallProgressDiv = generateProgressBar(task.id, task.subtasks.length);
   }
   return generateSmallCardHTML(task, className, clonedContentDiv, smallProgressDiv, i, taskID);
@@ -209,7 +203,6 @@ function openCard(taskId) {
     setColorButtonResponsiveWorkStep(taskId);
   }
   renderLargeContats();
-  loadLevelOfSubtask();
   renderSubtaskState(task);
 }
 
@@ -222,7 +215,6 @@ function renderSubtaskState(task) {
   let subTask = task["subtasks"];
   for (let i = 0; i < subTask.length; i++) {
     let renderTaskId = `checkbox-${taskId}-${i}`;
-    let indexTaskId = getTaskId(renderTaskId);
   }
 }
 
@@ -260,50 +252,6 @@ async function generateNewDataToBackendTasks(newTask, subTaskData) {
 }
 
 /**
- * Gets the index of a subtask in the stateOfTask array.
- * @param {string} id - The ID of the subtask.
- * @returns {number} - The index of the subtask in the stateOfTask array.
- */
-function getTaskId(id) {
-  let index = stateOfTask.indexOf(id);
-  return index;
-}
-
-/**
- * Asynchronously saves the level of a subtask, including its percentage completed and value of the subtask break.
- * @param {string} taskId - The ID of the task associated with the subtask.
- * @param {number} percentageCompleted - The percentage completed for the subtask.
- * @param {string} valueOfTheSubtaskBreak - The value of the subtask break.
- * @function
- */
-async function saveLevelOfSubtask(taskId, percentageCompleted, valueOfTheSubtaskBreak) {
-  await getLevelTaskId(taskId);
-  pushLevelOfSubtask(taskId, percentageCompleted, valueOfTheSubtaskBreak);
-  saveLevelOfSubtaskLocalStorage();
-}
-
-/**
- * Saves the subtask levels to local storage in JSON format.
- */
-function saveLevelOfSubtaskLocalStorage() {
-  let subtaskLevelAtText = JSON.stringify(subtaskLevel);
-  localStorage.setItem("subtaskLevel", subtaskLevelAtText);
-}
-
-/**
- * Gets the index of a task in subtaskLevel array and removes it.
- * @param {string} taskId - The ID of the task.
- */
-function getLevelTaskId(taskId) {
-  for (let i = 0; i < subtaskLevel.length; i++) {
-    let idOfTasklevel = subtaskLevel[i]["taskId"];
-    if (idOfTasklevel === taskId) {
-      subtaskLevel.splice(i, 1);
-    }
-  }
-}
-
-/**
  * Adds a subtask level to the subtaskLevel array.
  * @param {string} taskId - The ID of the task.
  * @param {number} percentageCompleted - The percentage completed for the subtask.
@@ -316,42 +264,6 @@ function pushLevelOfSubtask(taskId, percentageCompleted, valueOfTheSubtaskBreak)
     valueOfTheSubtaskBreak: valueOfTheSubtaskBreak,
   };
   subtaskLevel.push(level);
-}
-
-/**
- * Deletes a subtask level based on the index of the corresponding task in the tasks array.
- * @param {number} indexOfTask - The index of the task in the tasks array.
- */
-function deleteLevelOfSubtask(indexOfTask) {
-  let idOfTask = tasks[indexOfTask]["id"];
-  for (let i = 0; i < subtaskLevel.length; i++) {
-    let idOfTasklevel = subtaskLevel[i]["taskId"];
-    if (idOfTasklevel === idOfTask) {
-      subtaskLevel.splice(i, 1);
-    }
-  }
-  saveLevelOfSubtaskLocalStorage();
-  loadLevelOfSubtask();
-}
-
-/**
- * Loads the state of subtasks from local storage.
- */
-function loadStateOfSubTask() {
-  let idAtText = localStorage.getItem("id");
-  if (idAtText) {
-    stateOfTask = JSON.parse(idAtText);
-  }
-}
-
-/**
- * Loads subtask levels from local storage and updates the subtaskLevel variable.
- */
-function loadLevelOfSubtask() {
-  let subtaskLevelAtText = localStorage.getItem("subtaskLevel");
-  if (subtaskLevelAtText) {
-    subtaskLevel = JSON.parse(subtaskLevelAtText);
-  }
 }
 
 /**

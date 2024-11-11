@@ -61,7 +61,6 @@ async function postTaskToBackend(newTask) {
  * Updates a task on the server.
  */
 async function updateTaskOnServer(editedTask, idTask) {
-  console.log(editedTask, idTask);
   await fetch(`http://127.0.0.1:8000/api/tasks/${idTask}/`, {
     method: "PUT",
     headers: {

@@ -41,7 +41,6 @@ async function saveContact(event, i, idContacts) {
   circle.innerHTML = `<p class="nameId">${firstname}${surname}</p>`;
   let editCircle = document.getElementById("editCircle");
   editCircle.innerHTML = `<p class="nameIdEdit">${firstname}${surname}</p>`;
-  console.log("fre$ewweew", editedContact, idContacts);
   event.preventDefault();
   await updateContactOnServer(editedContact, idContacts);
   await renderContacts();

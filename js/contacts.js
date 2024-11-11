@@ -76,11 +76,6 @@ function showContacts() {
     let firstname = name[0].toUpperCase();
     let names = name.split(" ");
     let surname = names[1].toUpperCase().charAt(0);
-    /*    if (firstname !== currentLetter) {
-      console.log("teeetet", firstname);
-      contactsdiv.innerHTML += `<div class="group-header">${firstname}</div><hr>`;
-      currentLetter = firstname;
-    } */
     contactsdiv.innerHTML += displayContacts(contacts[i], i, firstname, surname);
   }
 }

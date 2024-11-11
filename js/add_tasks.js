@@ -302,7 +302,6 @@ function createNewTask(title, description, dueDate, priorityContent, selectedPri
 function updateArrays(newTask) {
   subT.unshift(subtasks.slice());
   tasks.unshift(newTask);
-  localStorage.setItem("selectedPriorityContent", newTask.priorityContent);
   postTaskToBackend(newTask);
   statusFromUser = "todo";
 }

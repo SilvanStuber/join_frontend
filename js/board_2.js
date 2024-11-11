@@ -13,8 +13,6 @@ function updateProgress(taskId, index, indexOfSubTask) {
   const progressBar = document.getElementById(`progress-${taskId}`);
   const percentageCompleted = (checkedCheckboxes.length / checkboxes.length) * 100;
   progressBar.style.width = `${percentageCompleted}%`;
-  saveStateOfSubTask(taskId, index, indexOfSubTask);
-  saveLevelOfSubtask(taskId, percentageCompleted, valueOfTheSubtaskBreak);
   loadStateOfSubTask();
 }
 
