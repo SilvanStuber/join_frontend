@@ -32,47 +32,6 @@ async function boardInit() {
 }
 
 /**
- * Loads contacts data from the server and updates the local 'contacts' array.
- * @throws {string} Throws an error if loading contacts data fails.
- * @returns {void} A promise that resolves when the data is loaded and processed.
- */
-async function load() {
-  const response = await fetch("http://127.0.0.1:8000/api/tasks/", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  if (response.ok) {
-    await pushTasksDataToArray(response);
-  } else {
-    console.error("Error loading contacts:", response.statusText);
-  }
-}
-
-/**
- * Push Data to Array
- */
-async function pushTasksDataToArray(response) {
-  tasks = [];
-  const data = await response.json();
-  data.forEach((task) => {
-    tasks.push({
-      id: task.pk,
-      title: task.title,
-      description: task.description,
-      dueDate: task.due_date,
-      assigned: task.assigned,
-      priorityID: task.priority_content,
-      subtasks: task.sub_tasks,
-      taskStatus: task.task_status,
-      category: task.category,
-    });
-  });
-  console.log("ojodjjdoji", tasks);
-}
-
-/**
  * Filters tasks based on their status.
  * @param {string} taskStatus - The status to filter tasks by.
  * @returns {Array} - An array of tasks with the specified status.
@@ -104,7 +63,7 @@ function updateHtmlForStatus(taskStatus, elementId) {
  * Renders the progress bar based on the subtask levels.
  */
 function renderProgressbar(task) {
-  let progressBar;
+  let progressBar = 0;
   let numberOfCompleted = 0;
   let percentOfProgressbar = 0;
   task.subtasks.forEach((subTask) => {
@@ -112,9 +71,9 @@ function renderProgressbar(task) {
       numberOfCompleted++;
     }
   });
-  percentOfProgressbar = (task.subtasks.length / numberOfCompleted) * 10;
-  console.log("ssss", percentOfProgressbar);
+  percentOfProgressbar = (numberOfCompleted / task.subtasks.length) * 100;
   setTimeout(() => {
+    document.getElementById(`smallProgress-${task.id}`).innerHTML = `${numberOfCompleted}/${task.subtasks.length}`;
     progressBar = document.getElementById(`progress-${task.id}`);
     progressBar.style.width = `${percentOfProgressbar}%`;
   }, 100);
@@ -189,20 +148,6 @@ function generateSelectedPriorityContent(currenCategory, clonedContentDiv, taskI
 }
 
 /**
- * Deletes a task based on the event triggered by the user.
- */
-async function deleteTask(id) {
-  await fetch(`http://127.0.0.1:8000/api/tasks/${id}/`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  updateHtml();
-  closeCard();
-}
-
-/**
  * Sets the ID of the dragged element.
  * @param {string} id - The ID of the dragged element.
  */
@@ -214,12 +159,13 @@ function startDragged(id) {
  * Moves a task to the specified task status and updates the UI.
  * @param {string} taskStatus - The status to move the task to.
  */
-function moveIt(taskStatus) {
+async function moveIt(taskStatus) {
   const taskIndex = tasks.findIndex((task) => task.id === draggedElementId);
   if (taskIndex !== -1) {
     tasks[taskIndex].taskStatus = taskStatus;
+    let newTaskData = await generateNewDataToBackendTasks(tasks[taskIndex], tasks[taskIndex].subtasks);
+    updateTaskOnServer(newTaskData, tasks[taskIndex].id);
     updateHtml();
-    save();
     renderSmallContats();
   }
 }
@@ -285,16 +231,32 @@ function renderSubtaskState(task) {
  * @param {string} taskId - The ID of the task associated with the subtask.
  * @param {number} index - The index of the subtask.
  */
-function saveStateOfSubTask(taskId, index) {
-  const id = `checkbox-${taskId}-${index}`;
-  let indexTaskId = getTaskId(id);
-  if (indexTaskId === -1) {
-    stateOfTask.push(id);
+async function saveStateOfSubTask(taskId, subTaskId, indexOfSubTask) {
+  let indexTask = tasks.findIndex((task) => task.id === taskId);
+  let stateOfSubTask = tasks[indexTask].subtasks[indexOfSubTask].completed;
+  if (!stateOfSubTask) {
+    tasks[indexTask].subtasks[indexOfSubTask].completed = true;
   } else {
-    stateOfTask.splice(indexTaskId, 1);
+    tasks[indexTask].subtasks[indexOfSubTask].completed = false;
   }
-  let idAtText = JSON.stringify(stateOfTask);
-  localStorage.setItem("id", idAtText);
+  let newTaskData = await generateNewDataToBackendTasks(tasks[indexTask], tasks[indexTask].subtasks);
+  updateTaskOnServer(newTaskData, taskId);
+}
+
+/**
+ * Generates task data to be sent to the backend.
+ */
+async function generateNewDataToBackendTasks(newTask, subTaskData) {
+  return {
+    title: newTask.title,
+    task_status: newTask.taskStatus,
+    description: newTask.description,
+    assigned: newTask.assigned,
+    due_date: newTask.dueDate,
+    priority_content: newTask.priorityID,
+    sub_tasks: subTaskData,
+    category: newTask.category,
+  };
 }
 
 /**

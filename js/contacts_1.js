@@ -24,21 +24,6 @@ async function deleteContact(event, i, contactId) {
 }
 
 /**
- * Deletes a contact from the server by contact ID.
- *
- * @param {number|string} contactId - The ID of the contact to delete.
- * @returns {Promise<void>} A promise that resolves when the contact is deleted.
- */
-async function deleteContactFromServer(contactId) {
-  await fetch(`http://127.0.0.1:8000/api/user_contacts/${contactId}/`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-}
-
-/**
  * Saves the edited contact, updates UI elements, and triggers rendering of updated contacts.
  * @param {Event} event - The event object representing the form submission.
  * @param {number} i - The index of the contact to be edited in the 'contacts' array.
@@ -63,29 +48,6 @@ async function saveContact(event, i, idContacts) {
   let index = validateValueOfContacts(newName);
   closeEditContact();
   selectContact(idContacts, index, firstname, surname, event);
-}
-
-/**
- * Updates a contact on the server.
- * @async
- * @function updateContactOnServer
- * @param {Array} editedContact - Array containing updated contact details [name, email, phone].
- * @param {number|string} idContacts - ID of the contact to update.
- * @returns {Promise<void>} Resolves when the contact is updated on the server.
- */
-async function updateContactOnServer(editedContact, idContacts) {
-  let updatedContact = {
-    name: editedContact[0],
-    email: editedContact[1],
-    phone: editedContact[2],
-  };
-  await fetch(`http://127.0.0.1:8000/api/user_contacts/${idContacts}/`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(updatedContact),
-  });
 }
 
 /**

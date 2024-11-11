@@ -198,7 +198,6 @@ function saveRevisedTaskCompletion(priorityContentBoard) {
   localStorage.setItem("selectedPriorityContent", priorityContentBoard);
   load();
   updateHtml();
-  renderSmallContats();
   closeCard();
   assignedMenuOpen = false;
 }
@@ -274,7 +273,7 @@ function displaySubtasks() {
   const subtasksElement = document.getElementById("editSubtasks");
   subtasksElement.innerHTML = "";
   for (let i = 0; i < oldSubs.length; i++) {
-    const subtask = oldSubs[i];
+    const subtask = oldSubs[i].description;
     subtasksElement.innerHTML += generateDisplaySubtasksHTML(i, subtask);
   }
 }
@@ -284,7 +283,7 @@ function displaySubtasks() {
  * @param {number} index - The index of the subtask to be edited.
  */
 function editSub(index) {
-  let oldSub = oldSubs[index];
+  let oldSub = oldSubs[index].description;
   document.getElementById(`subsTaskEdit${index}`).innerHTML = generateInputEditSubtask(index);
   document.getElementById(`subtaskEdite${index}`).value = oldSub;
 }
@@ -304,7 +303,7 @@ function deleteSubTaskEdite(index) {
  */
 function saveEditetSubTask(index) {
   let newSubtask = document.getElementById(`subtaskEdite${index}`).value;
-  oldSubs[index] = newSubtask;
+  oldSubs[index].description = newSubtask;
   displaySubtasks();
 }
 

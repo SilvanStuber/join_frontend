@@ -323,12 +323,13 @@ function saveOldSubs(taskId) {
  * @param {string} currentWorkStep - The updated work phase.
  * @param {string} taskId - The ID of the task being updated.
  */
-function changeWorkPhase(currentWorkStep, taskId) {
+async function changeWorkPhase(currentWorkStep, taskId) {
   let index = validateIndexFromTask(taskId);
   tasks[index].taskStatus = currentWorkStep;
   changeColorButtonResponsiveWorkStep(currentWorkStep);
   updateHtml();
-  save();
+  let newTaskData = await generateNewDataToBackendTasks(tasks[index], tasks[index].subtasks);
+  updateTaskOnServer(newTaskData, tasks[index].id);
   renderProgressbar();
   renderSmallContats();
 }

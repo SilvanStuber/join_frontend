@@ -3,7 +3,7 @@
  * @param {string} taskId - The ID of the task.
  * @param {number} index - The index of the task.
  */
-function updateProgress(taskId, index) {
+function updateProgress(taskId, index, indexOfSubTask) {
   const checkboxes = document.querySelectorAll(`.checkbox-input-${taskId}`);
   const checkedCheckboxes = Array.from(checkboxes).filter((checkbox) => checkbox.checked);
   const smallProgressDiv = document.getElementById(`smallProgress-${taskId}`);
@@ -13,7 +13,7 @@ function updateProgress(taskId, index) {
   const progressBar = document.getElementById(`progress-${taskId}`);
   const percentageCompleted = (checkedCheckboxes.length / checkboxes.length) * 100;
   progressBar.style.width = `${percentageCompleted}%`;
-  saveStateOfSubTask(taskId, index);
+  saveStateOfSubTask(taskId, index, indexOfSubTask);
   saveLevelOfSubtask(taskId, percentageCompleted, valueOfTheSubtaskBreak);
   loadStateOfSubTask();
 }
@@ -50,7 +50,7 @@ function renderSmallContats() {
     let contactsSmallCard = document.getElementById(`boardAssigend-${idTask}`);
     let maxContactsToShow = 3;
     let totalAssigned = assigned.length;
-    renderContentUserLargeCard(assigned, idTask, contactsSmallCard, maxContactsToShow, totalAssigned);
+    renderContentUserLargeCard(assigned, idTask, contactsSmallCard, maxContactsToShow, totalAssigned, i);
     if (totalAssigned > maxContactsToShow) {
       contactsSmallCard.innerHTML += generateManyContactsSmal(totalAssigned, maxContactsToShow);
     }
@@ -66,7 +66,7 @@ function renderSmallContats() {
  * @param {number} totalAssigned - Total number of assigned contacts.
  * @returns {number} - Total number of assigned contacts.
  */
-function renderContentUserLargeCard(assigned, idTask, contactsSmallCard, maxContactsToShow, totalAssigned) {
+function renderContentUserLargeCard(assigned, idTask, contactsSmallCard, maxContactsToShow, totalAssigned, taskIndex) {
   for (let a = 0; a < Math.min(maxContactsToShow, totalAssigned); a++) {
     let name = assigned[a];
     let firstname = name[0].toUpperCase();

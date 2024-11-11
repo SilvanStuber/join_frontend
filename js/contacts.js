@@ -1,5 +1,3 @@
-let contacts = [];
-
 const colors = ["#9227FE", "#3BDBC7", "#FD81FF", "#FFBB2A", "#6E52FF", "#169857", "#6B5E5F", "#FF7915", "#9227FE", "#3BDBC7", "#FD81FF", "#FFBB2A", "#6E52FF", "#169857", "#6B5E5F", "#FF7915"];
 let selectedContactIndex = null;
 let idContactFromBackend = null;
@@ -53,68 +51,6 @@ async function getItemContacts(key) {
       }
       throw `Could not find data with key "${key}".`;
     });
-}
-
-/**
- * Loads contacts data from the server and updates the local 'contacts' array.
- * @throws {string} Throws an error if loading contacts data fails.
- * @returns {void} A promise that resolves when the data is loaded and processed.
- */
-async function loadContactsFromServer() {
-  const response = await fetch("http://127.0.0.1:8000/api/user_contacts/", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  if (response.ok) {
-    await pushContactDataToArray(response);
-  } else {
-    console.error("Error loading contacts:", response.statusText);
-  }
-}
-
-/**
- * Push Data to Array
- */
-async function pushContactDataToArray(response) {
-  contacts = [];
-  const data = await response.json();
-  data.forEach((contact) => {
-    contacts.push({
-      id: contact.pk,
-      name: contact.name,
-      email: contact.email,
-      phone: contact.phone,
-    });
-  });
-}
-
-/**
- * Saves a new contact to the server by updating the 'contacts' array and storing it.
- * @param {any} newContact - The new contact to be added to the 'contacts' array.
- * @returns {void} A promise that resolves when the data is saved.
- */
-async function saveContactsToServer(newContact) {
-  contacts.push(newContact);
-  try {
-    const response = await fetch("http://127.0.0.1:8000/api/user_contacts/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newContact),
-    });
-    if (response.ok) {
-      const data = await response.json();
-      const pk = data.pk;
-      return pk;
-    } else {
-      console.error("Fehler beim Speichern des Kontakts:", response.statusText);
-    }
-  } catch (error) {
-    console.error("Netzwerkfehler:", error);
-  }
 }
 
 /**

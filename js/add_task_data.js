@@ -1,4 +1,3 @@
-let tasks = [];
 let tasksOld = [
   {
     id: 1,

@@ -9,7 +9,6 @@ let subtasks = [];
 let subT = [];
 let priorityContentArray = [];
 let currentId = 5;
-let taskStatus = [];
 let selectedPriorityContent = "";
 let preselectedCategory = "Medium";
 let statusFromUser = "todo";
@@ -304,57 +303,8 @@ function updateArrays(newTask) {
   subT.unshift(subtasks.slice());
   tasks.unshift(newTask);
   localStorage.setItem("selectedPriorityContent", newTask.priorityContent);
-  postToBackend(newTask);
+  postTaskToBackend(newTask);
   statusFromUser = "todo";
-}
-
-/**
- * Sends a new task to the backend API.
- */
-async function postToBackend(newTask) {
-  const subTaskData = await pushSubTaskToArray(newTask);
-  const taskData = await generateDataToBackendTasks(newTask, subTaskData);
-  console.log("ijdiodo", taskData);
-  debugger;
-  await fetch("http://127.0.0.1:8000/api/tasks/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(taskData),
-  });
-}
-
-function pushSubTaskToArray(newTask) {
-  let returnData = [];
-  if (newTask.subtasks.length === 0) {
-    return;
-  } else {
-    newTask.subtasks.forEach((subTask) => {
-      let data = {
-        description: subTask,
-        completed: false,
-      };
-      returnData.push(data);
-    });
-  }
-  return returnData;
-}
-
-/**
- * Generates task data to be sent to the backend.
- */
-async function generateDataToBackendTasks(newTask, subTaskData) {
-  return {
-    title: newTask.title,
-    task_status: newTask.taskStatus,
-    description: newTask.description,
-    assigned: assigned,
-    due_date: newTask.dueDate,
-    priority_content: newTask.priorityID,
-    sub_tasks: subTaskData,
-    category: newTask.category,
-  };
 }
 
 /**

@@ -293,7 +293,7 @@ function generateLargeCardHTML(task, className, clonedContentDiv, subsHtml, task
  * @returns {string} - Returns the HTML Code for Subtasks Content
  *
  * */
-function generateSubtasksHTML(task) {
+function generateSubtasksHTML(task, taskIndex) {
   return task.subtasks
     .map(
       (subtask, index) => `
@@ -303,7 +303,7 @@ function generateSubtasksHTML(task) {
             id="checkbox-${task.id}-${subtask.id}" 
             class="checkbox-input-${task.id}" 
             ${subtask.completed ? "checked" : ""} 
-            onchange="updateProgress(${task.id}, ${subtask.id}, ${index})"
+            onchange="updateProgress(${task.id}, ${taskIndex}, ${index})"
           >
           <label class="checkbox-label" for="checkbox-${task.id}-${subtask.id}">
             <span class="checkbox-custom">${subtask.description}</span>
