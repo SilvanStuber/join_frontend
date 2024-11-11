@@ -205,7 +205,9 @@ function generateSmallCardHTML(task, className, clonedContentDiv, smallProgressD
         ${smallProgressDiv}
         <div class="smallCardFooter">
           <div id="boardAssigend-${taskID}" class="boardAssigend"></div>
-          <div class="smallPrio" id="smallCardPrio">${clonedContentDiv.innerHTML}</div>
+          <div class="smallPrio" >
+            <img class="smallPrioImg" id="smallCardPrio${task.id}">
+          </div>
         </div>  
       </div>
     `;
@@ -245,8 +247,9 @@ function generateLargeCardHTML(task, className, clonedContentDiv, subsHtml, task
                   <div class="largDueDate"><span>Due Date:</span><span>${formattedDueDate}</span></div>
                 </div>
                 <div class="largPrioDetail">
-                  <p  class="boardText">Priority:</p>
-                  <p class="blackImport">${clonedContentDiv.innerHTML}</p>
+                  <p class="boardText">Priority:</p>
+                  <p id="textPrioLargeCard${task.id}" class="boardText">Priority:</p>
+                  <img id="imgPrioLargeCard${task.id}" class="blackImport">
                 </div>
                 <div class="assigendLarge">
                   <p  class="boardText">Assigned To:</p>

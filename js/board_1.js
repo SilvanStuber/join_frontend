@@ -41,6 +41,22 @@ function updateHtmlForStatus(taskStatus, elementId) {
       const task = tasksByStatus[i];
       element.innerHTML += generateSmallCard(task, i);
       renderProgressbar(task);
+      rednerPrioContent(task);
+    }
+  }
+}
+
+/**
+ * Renders the content of prio.
+ */
+function rednerPrioContent(task) {
+  if (task) {
+    if (task.priorityID === "priorityLow") {
+      document.getElementById(`smallCardPrio${task.id}`).src = "assets/img/low.png";
+    } else if (task.priorityID === "priorityMedium") {
+      document.getElementById(`smallCardPrio${task.id}`).src = "assets/img/medium.png";
+    } else if (task.priorityID === "priorityUrgent") {
+      document.getElementById(`smallCardPrio${task.id}`).src = "assets/img/urgent.png";
     }
   }
 }
@@ -204,6 +220,25 @@ function openCard(taskId) {
   }
   renderLargeContats();
   renderSubtaskState(task);
+  renderPrioLargeCard(task);
+}
+
+/**
+ * Renders the content of prio.
+ */
+function renderPrioLargeCard(task) {
+  if (task) {
+    if (task.priorityID === "priorityLow") {
+      document.getElementById(`textPrioLargeCard${task.id}`).innerHTML = "Low";
+      document.getElementById(`imgPrioLargeCard${task.id}`).src = "assets/img/low.png";
+    } else if (task.priorityID === "priorityMedium") {
+      document.getElementById(`textPrioLargeCard${task.id}`).innerHTML = "Medium";
+      document.getElementById(`imgPrioLargeCard${task.id}`).src = "assets/img/medium.png";
+    } else if (task.priorityID === "priorityUrgent") {
+      document.getElementById(`textPrioLargeCard${task.id}`).innerHTML = "Urgent";
+      document.getElementById(`imgPrioLargeCard${task.id}`).src = "assets/img/urgent.png";
+    }
+  }
 }
 
 /**
@@ -284,6 +319,5 @@ function generateLargeCard(task) {
   let currenCategory = task.category[0];
   let className = typeof currenCategory === "string" ? currenCategory.replace(/\s+/g, "") : "";
   const subsHtml = generateSubtasksHTML(task);
-  let taskId = task["id"];
-  return generateLargeCardHTML(task, className, clonedContentDiv, subsHtml, taskId);
+  return generateLargeCardHTML(task, className, clonedContentDiv, subsHtml, task.id);
 }

@@ -410,8 +410,12 @@
 }
 
 .smallPrio {
-  width: 124px;
   margin-left: -40px;
+}
+
+.smallPrioImg {
+  height: 10px;
+  padding-right: 4px;
 }
 
 .smallProgress {
@@ -565,6 +569,7 @@
   font-style: normal;
   font-weight: 400;
   line-height: 120%;
+  gap: 12px;
 }
 
 #boardAssigendLargCard {
