@@ -3,7 +3,7 @@
  * @param {string} taskId - The ID of the task.
  * @param {number} index - The index of the task.
  */
-function updateProgress(taskId, index, indexOfSubTask) {
+function updateProgress(taskId, indexTask, indexOfSubTask) {
   const checkboxes = document.querySelectorAll(`.checkbox-input-${taskId}`);
   const checkedCheckboxes = Array.from(checkboxes).filter((checkbox) => checkbox.checked);
   const smallProgressDiv = document.getElementById(`smallProgress-${taskId}`);
@@ -13,7 +13,7 @@ function updateProgress(taskId, index, indexOfSubTask) {
   const progressBar = document.getElementById(`progress-${taskId}`);
   const percentageCompleted = (checkedCheckboxes.length / checkboxes.length) * 100;
   progressBar.style.width = `${percentageCompleted}%`;
-  loadStateOfSubTask();
+  saveStateOfSubTask(taskId, indexOfSubTask);
 }
 
 /**

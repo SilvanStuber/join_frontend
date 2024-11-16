@@ -12,11 +12,11 @@ let loggedIn = false;
  *
  */
 async function initSummary() {
+  await loadUserLoginData();
   await includeHTML();
   await loadContactsFromServer();
   loadStatusOfLogin();
   generateGreetingText();
-  loadUserData();
   setInitialsInTheHeader();
   loadContentGreeting();
   load();

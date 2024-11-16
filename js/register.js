@@ -1,11 +1,19 @@
-let users = [];
+let userRegisterData = {
+  username: "",
+  email: "",
+  password: "",
+  repeated_password: "",
+};
+let userLoginData = {
+  email: "",
+  password: "",
+};
 let rememberMeIsSet;
 let emailRememberMe = [];
 let passwordRememberMe = [];
 let userName = [];
 let initials = [];
-const STORAGE_TOKEN = "X7DBXKDEU8ISCZXV2D2NCZOTW84Y090L3DMCTF7N";
-const STORAGE_URL = "https://remote-storage.developerakademie.org/item";
+let userData;
 
 /**
  * *
@@ -19,14 +27,16 @@ const STORAGE_URL = "https://remote-storage.developerakademie.org/item";
  * `false` User is not logged in.
  *
  */
-function login() {
+async function login() {
   loggedIn = false;
   saveStatusOfLogin();
-  let email = document.getElementById("emailInput").value;
-  let password = document.getElementById("passwordInput").value;
-  let user = users.find((u) => u.email == email && u.password == password);
-  if (user) {
-    let name = user["name"];
+  userLoginData.email = document.getElementById("emailInput").value;
+  userLoginData.password = document.getElementById("passwordInput").value;
+  responseDataLogin = await loginUserOnTheServer(userLoginData);
+  if (responseDataLogin.email) {
+    console.log(responseDataLogin);
+    localStorage.setItem("userData", JSON.stringify(responseDataLogin));
+    let name = responseDataLogin.username;
     setInitialsOfTheUser(name);
     window.location.href = "./summary.html";
     rememberMe();
@@ -48,7 +58,7 @@ function login() {
 function guestLogin() {
   loggedIn = false;
   saveStatusOfLogin();
-  let name = "Guest";
+  let name = "Guest"; /**PasswordGuest1! */
   setInitialsOfTheUser(name);
   window.location.href = "./summary.html";
 }
@@ -114,18 +124,6 @@ function rememberMe() {
 }
 
 /**
- * Saving the data on the server
- *
- * @param {string} key - the key to the request
- * @param {string} value - the value of the request
- * @param {string} res - Feedback from the server
- * */
-async function setItem(key, value) {
-  const payload = { key, value, token: STORAGE_TOKEN };
-  return fetch(STORAGE_URL, { method: "POST", body: JSON.stringify(payload) }).then((res) => res.json());
-}
-
-/**
  * Download data from the server
  *
  * @param {string} key - the key to the request
@@ -152,11 +150,11 @@ async function getItem(key) {
  *
  * */
 async function loadUsers() {
-  try {
+  /*   try {
     users = JSON.parse(await getItem("users"));
   } catch (e) {
     console.error("Loading error:", e);
-  }
+  } */
 }
 
 /**
@@ -169,12 +167,11 @@ async function loadUsers() {
  * */
 async function register() {
   signUpButton.disabled = true;
-  users.push({
-    name: nameInput.value,
-    email: emailInput.value,
-    password: passwordInput.value,
-  });
-  await setItem("users", JSON.stringify(users));
+  userRegisterData.username = nameInput.value;
+  userRegisterData.email = emailInput.value;
+  userRegisterData.password = passwordInput.value;
+  userRegisterData.repeated_password = confirmPasswordInput.value;
+  let token = await saveNewUserOnTheServer(userRegisterData);
   resetForm();
   renderRegisteSuccessfully();
 }
@@ -230,11 +227,9 @@ function saveUserLoginData() {
  *  @param {Array} passwordRememberMe - Saved password
  * */
 function loadUserLoginData() {
-  let emailRememberMeAtText = localStorage.getItem("email");
-  let passwordRememberMeAtText = localStorage.getItem("password");
-  if (emailRememberMeAtText && passwordRememberMeAtText) {
-    emailRememberMe = JSON.parse(emailRememberMeAtText);
-    passwordRememberMe = JSON.parse(passwordRememberMeAtText);
+  let userDataAtText = localStorage.getItem("userData");
+  if (userDataAtText) {
+    userData = JSON.parse(userDataAtText);
   }
 }
 

@@ -4,10 +4,10 @@ let draggedElementId;
  * Initializes the board and performs necessary setup tasks.
  */
 async function boardInit() {
+  await loadUserLoginData();
   await load();
   await includeHTML();
   await loadContactsFromServer();
-  loadUserData();
   setInitialsInTheHeader();
   removeStyleSidebar();
   addTextColor();
@@ -208,12 +208,12 @@ function removeHighlight(id) {
  * Renders the state of subtasks for a given task.
  * @param {Object} task - The task object containing subtasks.
  */
-function openCard(taskId) {
+function openCard(taskId, index) {
   load();
   let largeCardElement = document.getElementById("popUpWindow");
   let task = tasks.find((t) => t.id === taskId);
   if (task) {
-    largeCardElement.innerHTML = generateLargeCard(task);
+    largeCardElement.innerHTML = generateLargeCard(task, index);
     largeCardElement.style.transform = "translateX(0%)";
     renderLargeContats(task);
     setColorButtonResponsiveWorkStep(taskId);
@@ -258,7 +258,7 @@ function renderSubtaskState(task) {
  * @param {string} taskId - The ID of the task associated with the subtask.
  * @param {number} index - The index of the subtask.
  */
-async function saveStateOfSubTask(taskId, subTaskId, indexOfSubTask) {
+async function saveStateOfSubTask(taskId, indexOfSubTask) {
   let indexTask = tasks.findIndex((task) => task.id === taskId);
   let stateOfSubTask = tasks[indexTask].subtasks[indexOfSubTask].completed;
   if (!stateOfSubTask) {
@@ -306,7 +306,7 @@ function pushLevelOfSubtask(taskId, percentageCompleted, valueOfTheSubtaskBreak)
  * @param {object} task - The task object.
  * @returns {string} - The generated HTML for the large card.
  */
-function generateLargeCard(task) {
+function generateLargeCard(task, index) {
   let currentPriorityContent = task.priorityContent || "";
   let tempDiv = document.createElement("div");
   tempDiv.innerHTML = currentPriorityContent;
@@ -318,6 +318,6 @@ function generateLargeCard(task) {
   removeActiveClassFromSvgElements(clonedContentDiv);
   let currenCategory = task.category[0];
   let className = typeof currenCategory === "string" ? currenCategory.replace(/\s+/g, "") : "";
-  const subsHtml = generateSubtasksHTML(task);
+  const subsHtml = generateSubtasksHTML(task, index);
   return generateLargeCardHTML(task, className, clonedContentDiv, subsHtml, task.id);
 }

@@ -169,16 +169,6 @@ function renderLogInContent() {
  * If remembered credentials (email and password) are present, it fills the input fields
  * and sets the "Remember Me" checkbox to checked. If there are no stored credentials,
  * it ensures the "Remember Me" checkbox is unchecked.
- *
- *  @param {boolean} checkboxRememberMe -
- * Indicates whether legal information is displayed on the login page.
- * `true` means the information is visible,
- * `false` means it is not displayed.
- *
- *  @param {boolean} rememberMeIsSet -
- * Indicates whether legal information is displayed on the login page.
- * `true` means the information is visible,
- * `false` means it is not displayed.
  */
 function automaticCompletionLoginData() {
   let checkboxRememberMe = document.getElementById("rememberMe");

@@ -6,6 +6,7 @@ let idContactFromBackend = null;
  * Initializes the contacts module.
  */
 async function contactsInit() {
+  await loadUserLoginData();
   await includeHTML();
   load();
   loadUserData();

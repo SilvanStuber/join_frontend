@@ -29,7 +29,6 @@ let statusFromUser = "todo";
  * @param {string} title - The title of the task.
  * @returns {Object} - The task object containing the provided details.
  */
-
 function createTask(assigned, category, description, dueDate, id, priorityContent, priorityID, subtasks, taskStatus, title) {
   return { assigned, category, description, dueDate, id, priorityContent, priorityID, subtasks, taskStatus, title };
 }
@@ -38,9 +37,9 @@ function createTask(assigned, category, description, dueDate, id, priorityConten
  * Fnction to initialize the process of adding a task
  */
 async function addTaskInit() {
-  await includeHTML();
-  await loadUserData();
+  await loadUserLoginData();
   await loadContactsFromServer();
+  await includeHTML();
   setInitialsInTheHeader();
   renderTask();
   removeStyleSidebar();

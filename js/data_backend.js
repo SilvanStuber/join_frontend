@@ -2,16 +2,46 @@ let tasks = [];
 let taskStatus = [];
 let contacts = [];
 
+async function saveNewUserOnTheServer(userRegisterData) {
+  const response = await fetch("http://127.0.0.1:8000/api/auth/registration/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userRegisterData),
+  });
+  if (!response.ok) {
+    throw new Error(`Error: ${response.status} ${response.statusText}`);
+  }
+  const data = await response.json();
+
+  const token = data.token;
+  return token;
+}
+
+async function loginUserOnTheServer(userLoginData) {
+  const response = await fetch("http://127.0.0.1:8000/api/auth/login/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userLoginData),
+  });
+  const data = await response.json();
+  return data;
+}
+
 /**
  * Loads contacts data from the server and updates the local 'contacts' array.
  * @throws {string} Throws an error if loading contacts data fails.
  * @returns {void} A promise that resolves when the data is loaded and processed.
  */
 async function load() {
-  const response = await fetch("http://127.0.0.1:8000/api/tasks/", {
+  const response = await fetch("http://127.0.0.1:8000/api/board/tasks/", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Token ${userData["token"]}`,
     },
   });
   if (response.ok) {
@@ -48,10 +78,11 @@ async function pushTasksDataToArray(response) {
 async function postTaskToBackend(newTask) {
   const subTaskData = await pushSubTaskToArray(newTask);
   const taskData = await generateDataToBackendTasks(newTask, subTaskData);
-  await fetch("http://127.0.0.1:8000/api/tasks/", {
+  await fetch("http://127.0.0.1:8000/api/board/tasks/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Token ${userData["token"]}`,
     },
     body: JSON.stringify(taskData),
   });
@@ -61,10 +92,11 @@ async function postTaskToBackend(newTask) {
  * Updates a task on the server.
  */
 async function updateTaskOnServer(editedTask, idTask) {
-  await fetch(`http://127.0.0.1:8000/api/tasks/${idTask}/`, {
+  await fetch(`http://127.0.0.1:8000/api/board/tasks/${idTask}/`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Token ${userData["token"]}`,
     },
     body: JSON.stringify(editedTask),
   });
@@ -109,10 +141,11 @@ async function generateDataToBackendTasks(newTask, subTaskData) {
  * Deletes a task based on the event triggered by the user.
  */
 async function deleteTask(id) {
-  await fetch(`http://127.0.0.1:8000/api/tasks/${id}/`, {
+  await fetch(`http://127.0.0.1:8000/api/board/tasks/${id}/`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Token ${userData["token"]}`,
     },
   });
   updateHtml();
@@ -125,10 +158,11 @@ async function deleteTask(id) {
  * @returns {void} A promise that resolves when the data is loaded and processed.
  */
 async function loadContactsFromServer() {
-  const response = await fetch("http://127.0.0.1:8000/api/user_contacts/", {
+  const response = await fetch("http://127.0.0.1:8000/api/contacts/user_contacts/", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Token ${userData["token"]}`,
     },
   });
   if (response.ok) {
@@ -162,10 +196,11 @@ async function pushContactDataToArray(response) {
 async function saveContactsToServer(newContact) {
   contacts.push(newContact);
   try {
-    const response = await fetch("http://127.0.0.1:8000/api/user_contacts/", {
+    const response = await fetch("http://127.0.0.1:8000/api/contacts/user_contacts/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Token ${userData["token"]}`,
       },
       body: JSON.stringify(newContact),
     });
@@ -188,10 +223,11 @@ async function saveContactsToServer(newContact) {
  * @returns {Promise<void>} A promise that resolves when the contact is deleted.
  */
 async function deleteContactFromServer(contactId) {
-  await fetch(`http://127.0.0.1:8000/api/user_contacts/${contactId}/`, {
+  await fetch(`http://127.0.0.1:8000/api/contacts/user_contacts/${contactId}/`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Token ${userData["token"]}`,
     },
   });
 }
@@ -210,10 +246,11 @@ async function updateContactOnServer(editedContact, idContacts) {
     email: editedContact[1],
     phone: editedContact[2],
   };
-  await fetch(`http://127.0.0.1:8000/api/user_contacts/${idContacts}/`, {
+  await fetch(`http://127.0.0.1:8000/api/contacts/user_contacts/${idContacts}/`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Token ${userData["token"]}`,
     },
     body: JSON.stringify(updatedContact),
   });

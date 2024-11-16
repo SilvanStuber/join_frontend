@@ -196,7 +196,7 @@ function generateDisplaySubtasksHTML(i, subtask) {
  * */
 function generateSmallCardHTML(task, className, clonedContentDiv, smallProgressDiv, i, taskID) {
   return /*html*/ `
-      <div class="smallCard cardA" id="smallCardId-${taskID}" draggable="true" ondragstart="startDragged(${taskID})" onclick="openCard(${taskID})"> 
+      <div class="smallCard cardA" id="smallCardId-${taskID}" draggable="true" ondragstart="startDragged(${taskID})" onclick="openCard(${taskID}, ${i})"> 
         <div class="smallCardcategory"><p id="category" class="${className}">${task.category[0]}</p><img class="d-none" id="moveMobileVersion-${task.id}" src="./assets/img/punkte.png" alt=""></div>
         <div class="taskText">
           <div class="taskTitle">${task.title}</div>
