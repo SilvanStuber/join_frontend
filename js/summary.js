@@ -14,17 +14,17 @@ let loggedIn = false;
 async function initSummary() {
   await loadUserLoginData();
   await includeHTML();
-  await loadContactsFromServer();
+  await loadSummaryData();
+  validationOfTheMostRecentDate();
   loadStatusOfLogin();
   generateGreetingText();
-  setInitialsInTheHeader();
   loadContentGreeting();
   load();
-  determineNumberTasks();
   removeStyleSidebar();
   addTextColor();
   document.getElementById("sidebarCategorySummary").classList.add("sidebarCategoryLinkActive");
   loadContentToSummary();
+  setInitialsInTheHeader();
 }
 
 /**
@@ -51,66 +51,13 @@ function generateGreetingText() {
 
 /**
  * *
- * Determine content of all tasks
- *
- * @param {string} taskStatus - workstep status
- * @param {string} priority - priority from task
- * @param {string} expirationDate - date when task should be completed
- * @param {number} numberOfTasks - number of tasks
- *
- */
-function determineNumberTasks() {
-  resetNumbersTasks();
-  for (let i = 0; i < tasks.length; i++) {
-    let taskStatus = tasks[i]["taskStatus"];
-    let priority = tasks[i]["priorityID"];
-    let expirationDate = tasks[i]["dueDate"];
-    numberOfTasks++;
-    validationOfTheContentOfTasks(taskStatus, priority, expirationDate);
-  }
-  validationOfTheMostRecentDate();
-}
-
-/**
- * *
- * Counting and validating the task based on the corresponding content
- *
- * @param {number} numberToDo - counter of To Do tasks
- * @param {number} numberProgress - counter of To Do tasks
- * @param {number} numberFeedback - counter of To Do tasks
- * @param {number} numberDone - counter of To Do tasks
- * @param {number} numberOfUrgentTasks - counter which tasks have the urgent priority
- * @param {number} expirationDateOfTask - date when task should be completed
- *
- */
-function validationOfTheContentOfTasks(task, priority, expirationDate) {
-  if (task === "todo") {
-    numberToDo++;
-  }
-  if (task === "inProgress") {
-    numberProgress++;
-  }
-  if (task === "awaitFeedback") {
-    numberFeedback++;
-  }
-  if (task === "done") {
-    numberDone++;
-  }
-  if (priority === "priorityUrgent") {
-    numberOfUrgentTasks++;
-    expirationDateOfTask.push(expirationDate);
-  }
-}
-
-/**
- * *
  * Validation of the task that has the Urgent priority and is due next
  *
  * @param {string} dateOfTheNextUpcomingTask - date Of The Next Upcoming Task
  * @param {string} dateOfTask - date Of Task
  */
 function validationOfTheMostRecentDate() {
-  if (expirationDateOfTask < 1) {
+  if (!sumarryData.closest_due_date) {
     dateOfTheNextUpcomingTask = "No";
   } else {
     expirationDateOfTask.sort((a, b) => b - a);
@@ -132,28 +79,13 @@ function validationOfTheMostRecentDate() {
  *
  */
 function formatDateOfTask(dateOfTask) {
-  let date = new Date(dateOfTask);
+  dateOfTheNextUpcomingTask = "";
+  let date = new Date(sumarryData.closest_due_date);
   let months = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
   let day = date.getDate();
   let month = months[date.getMonth()];
   let year = date.getFullYear();
   dateOfTheNextUpcomingTask = `${month} ${day}, ${year}`;
-}
-
-/**
- * *
- * Reset all task counters
- *
- */
-function resetNumbersTasks() {
-  numberOfTasks = 0;
-  numberToDo = 0;
-  numberProgress = 0;
-  numberFeedback = 0;
-  numberDone = 0;
-  numberOfUrgentTasks = 0;
-  expirationDateOfTask = [];
-  dateOfTheNextUpcomingTask = [];
 }
 
 /**
@@ -220,13 +152,13 @@ function loadStatusOfLogin() {
  *
  * */
 function loadContentToSummary() {
-  document.getElementById("todosCrowd").innerHTML = numberToDo;
-  document.getElementById("doneCrowd").innerHTML = numberDone;
-  document.getElementById("urgendCrowd").innerHTML = numberOfUrgentTasks;
+  document.getElementById("todosCrowd").innerHTML = sumarryData.todo_tasks;
+  document.getElementById("doneCrowd").innerHTML = sumarryData.done_tasks;
+  document.getElementById("urgendCrowd").innerHTML = sumarryData.priority_urgent_tasks;
   document.getElementById("dateSummary").innerHTML = dateOfTheNextUpcomingTask;
-  document.getElementById("tasksNumber").innerHTML = numberOfTasks;
-  document.getElementById("tasksNumberProgress").innerHTML = numberProgress;
-  document.getElementById("tasksNumberFeedback").innerHTML = numberFeedback;
+  document.getElementById("tasksNumber").innerHTML = sumarryData.total_tasks;
+  document.getElementById("tasksNumberProgress").innerHTML = sumarryData.in_progress_tasks;
+  document.getElementById("tasksNumberFeedback").innerHTML = sumarryData.await_feedback_tasks;
   document.getElementById("greetingTextSummary").innerHTML = greetingText;
-  document.getElementById("userNameSummary").innerHTML = userName;
+  document.getElementById("userNameSummary").innerHTML = userData.username.replace(/_/g, " ");
 }

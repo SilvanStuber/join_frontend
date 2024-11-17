@@ -1,6 +1,18 @@
 let tasks = [];
 let taskStatus = [];
 let contacts = [];
+let sumarryData;
+
+async function loadSummaryData() {
+  const response = await fetch("http://127.0.0.1:8000/api/summary/", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Token ${userData["token"]}`,
+    },
+  });
+  sumarryData = await response.json();
+}
 
 async function saveNewUserOnTheServer(userRegisterData) {
   const response = await fetch("http://127.0.0.1:8000/api/auth/registration/", {
@@ -14,7 +26,6 @@ async function saveNewUserOnTheServer(userRegisterData) {
     throw new Error(`Error: ${response.status} ${response.statusText}`);
   }
   const data = await response.json();
-
   const token = data.token;
   return token;
 }

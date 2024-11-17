@@ -9,7 +9,6 @@ async function contactsInit() {
   await loadUserLoginData();
   await includeHTML();
   load();
-  loadUserData();
   setInitialsInTheHeader();
   removeStyleSidebar();
   addTextColor();
@@ -29,29 +28,6 @@ async function renderContacts() {
     return a.name.localeCompare(b.name);
   });
   showContacts();
-}
-
-/**
- * Gets an item from the contacts storage.
- * @param {string} key - The key to retrieve from the storage.
- * @returns {void} A promise that resolves with the value associated with the given key.
- * @throws {string} Throws an error if the data with the specified key is not found.
- */
-async function setItemContacts(key, value) {
-  const payload = { key, value, token: STORAGE_TOKEN };
-  return fetch(STORAGE_URL, { method: "POST", body: JSON.stringify(payload) }).then((res) => res.json());
-}
-
-async function getItemContacts(key) {
-  const url = `${STORAGE_URL}?key=${key}&token=${STORAGE_TOKEN}`;
-  return fetch(url)
-    .then((res) => res.json())
-    .then((res) => {
-      if (res.data) {
-        return res.data.value;
-      }
-      throw `Could not find data with key "${key}".`;
-    });
 }
 
 /**

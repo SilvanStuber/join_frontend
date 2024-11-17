@@ -8,6 +8,10 @@ let userLoginData = {
   email: "",
   password: "",
 };
+let guestLoginData = {
+  email: "guest@guest.com",
+  password: "PasswordGuest1!",
+};
 let rememberMeIsSet;
 let emailRememberMe = [];
 let passwordRememberMe = [];
@@ -34,7 +38,6 @@ async function login() {
   userLoginData.password = document.getElementById("passwordInput").value;
   responseDataLogin = await loginUserOnTheServer(userLoginData);
   if (responseDataLogin.email) {
-    console.log(responseDataLogin);
     localStorage.setItem("userData", JSON.stringify(responseDataLogin));
     let name = responseDataLogin.username;
     setInitialsOfTheUser(name);
@@ -55,12 +58,16 @@ async function login() {
  * `false` User is not logged in.
  *
  */
-function guestLogin() {
+async function guestLogin() {
   loggedIn = false;
   saveStatusOfLogin();
-  let name = "Guest"; /**PasswordGuest1! */
-  setInitialsOfTheUser(name);
-  window.location.href = "./summary.html";
+  responseDataLogin = await loginUserOnTheServer(guestLoginData);
+  if (responseDataLogin.email) {
+    localStorage.setItem("userData", JSON.stringify(responseDataLogin));
+    let name = "Guest";
+    setInitialsOfTheUser(name);
+    window.location.href = "./summary.html";
+  }
 }
 
 /**
@@ -167,7 +174,7 @@ async function loadUsers() {
  * */
 async function register() {
   signUpButton.disabled = true;
-  userRegisterData.username = nameInput.value;
+  userRegisterData.username = nameInput.value.replace(/ /g, "_");
   userRegisterData.email = emailInput.value;
   userRegisterData.password = passwordInput.value;
   userRegisterData.repeated_password = confirmPasswordInput.value;

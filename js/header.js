@@ -42,6 +42,7 @@ function closeSubmenu() {
  *
  * */
 function setInitialsInTheHeader() {
+  loadUserData();
   document.getElementById("initialsUserHeader").innerHTML = initials;
 }
 
