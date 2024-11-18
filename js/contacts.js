@@ -8,7 +8,6 @@ let idContactFromBackend = null;
 async function contactsInit() {
   await loadUserLoginData();
   await includeHTML();
-  load();
   setInitialsInTheHeader();
   removeStyleSidebar();
   addTextColor();
@@ -76,18 +75,18 @@ function resetSelectedContact() {
  * @param {Event} event - The event object representing the user interaction.
  * @returns {void} This function does not return any value.
  */
-function selectContact(idContact, i, firstname, surname, event) {
+function selectContact(idContact, index, firstname, surname, event) {
   document.getElementById("editContact").classList.add("d-none");
   document.getElementById("editContactBackground").classList.add("d-none");
   resetSelectedContact();
-  document.getElementById(`contact-info-${i}`).style = "background-color: #293647; color: white";
-  selectedContactIndex = i;
-  showCard(i, firstname, surname, idContact);
+  document.getElementById(`contact-info-${index}`).style = "background-color: #293647; color: white";
+  selectedContactIndex = index;
+  showCard(index, firstname, surname, idContact);
   document.getElementById("contact-details").classList.remove("hide-mobile-397px");
   document.getElementById("contact-list").classList.add("hide-mobile-397px");
   document.getElementById("button-add-contact-mobile").style = "display: none";
   document.getElementById("button-edit-contact-mobile").style = "display: block";
-  fillOnclickDiv(i, idContact);
+  fillOnclickDiv(index, idContact);
 }
 
 /**
@@ -207,20 +206,29 @@ async function createContact(event) {
   if (!validateInput(userName, userEmail, userPhone)) {
     return;
   } else {
-    let newContact = {
-      name: userName,
-      email: userEmail,
-      phone: userPhone,
-    };
+    let newContact = { name: userName, email: userEmail, phone: userPhone };
     idContactFromBackend = await saveContactsToServer(newContact);
     sortContacts();
     renderContacts();
     closeAddContact();
     clearInputFields();
-    let newIndex = contacts.findIndex((contact) => contact === newContact);
+    selectContactRender(newContact, userName);
+  }
+}
+
+/**
+ * Renders the selected contact after a slight delay, updating UI and showing success messages.
+ *
+ * @param {Object} newContact - The new contact object to be rendered.
+ * @param {string} newContact.name - The name of the contact.
+ * @param {string} userName - The full name of the user in the format "FirstName LastName".
+ */
+function selectContactRender(newContact, userName) {
+  setTimeout(() => {
+    let newIndex = contacts.findIndex((contact) => contact.name === newContact.name);
     selectContact(idContactFromBackend, newIndex, userName[0].toUpperCase(), userName.split(" ")[1].toUpperCase().charAt(0));
     showSuccessMessageBasedOnScreen();
-  }
+  }, 100);
 }
 
 /**

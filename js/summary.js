@@ -19,7 +19,6 @@ async function initSummary() {
   loadStatusOfLogin();
   generateGreetingText();
   loadContentGreeting();
-  load();
   removeStyleSidebar();
   addTextColor();
   document.getElementById("sidebarCategorySummary").classList.add("sidebarCategoryLinkActive");

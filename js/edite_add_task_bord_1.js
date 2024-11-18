@@ -110,7 +110,7 @@ function displayAssignedContacts(assignedContacts) {
  */
 function saveEditTaskBoard(taskId) {
   tasksIdFromServer = taskId;
-  const foundTask = findTaskById(taskId);
+  let foundTask = findTaskById(taskId);
   let status = getStatusTaskId(taskId);
   let selectedPriorityBoard = document.querySelector(".priorityUrgent-active, .priorityMedium-active, .priorityLow-active");
   let priorityContentBoard = selectedPriorityBoard ? selectedPriorityBoard.innerHTML : "";
@@ -158,25 +158,40 @@ function loadNewBoard(taskId, foundTask, status, priorityContentBoard, selectedP
  */
 function generateEditedTask(foundTask, taskId, status, selectedPriorityIDBoard, priorityContentBoard, assigned, category) {
   if (foundTask) {
-    editedTask = {
-      id: taskId,
-      title: document.getElementById("editTitle").value,
-      description: document.getElementById("editDescription").value,
-      dueDate: document.getElementById("editDueDate").value,
-      taskStatus: status,
-      priorityContent: priorityContentBoard,
-      priorityID: selectedPriorityIDBoard,
-      assigned: assigned,
-      category: category,
-      subtasks: oldSubs.slice(),
-    };
+    saveEditedTask(foundTask, taskId, status, selectedPriorityIDBoard, priorityContentBoard, assigned, category);
     subtasks = [];
     editSubs = [];
     tasks = tasks.map((task) => (task.id === taskId ? editedTask : task));
-    save();
+    updateTaskOnServer(editedTask, taskId);
   } else {
     return;
   }
+}
+
+/**
+ * Saves edited task data.
+ *
+ * @param {Object} foundTask - Original task.
+ * @param {string} taskId - Task ID.
+ * @param {string} status - Task status.
+ * @param {string} selectedPriorityIDBoard - Priority ID.
+ * @param {string} priorityContentBoard - Priority content.
+ * @param {Array} assigned - Assigned members.
+ * @param {string} category - Task category.
+ */
+function saveEditedTask(foundTask, taskId, status, selectedPriorityIDBoard, priorityContentBoard, assigned, category) {
+  editedTask = {
+    id: taskId,
+    title: document.getElementById("editTitle").value,
+    description: document.getElementById("editDescription").value,
+    dueDate: document.getElementById("editDueDate").value,
+    taskStatus: status,
+    priorityContent: priorityContentBoard,
+    priorityID: selectedPriorityIDBoard,
+    assigned: assigned,
+    category: category,
+    subtasks: oldSubs.slice(),
+  };
 }
 
 /**
@@ -184,7 +199,7 @@ function generateEditedTask(foundTask, taskId, status, selectedPriorityIDBoard, 
  * @param {string} priorityContentBoard - The priority content for the revised task completion.
  */
 function saveRevisedTaskCompletion(priorityContentBoard) {
-  load();
+  loadTasksFromServer();
   updateHtml();
   closeCard();
   assignedMenuOpen = false;
@@ -341,31 +356,4 @@ function createIconsContainerWhenEdit(subtaskItemDiv, subtaskText, index) {
   iconsContainerWhenEdit.appendChild(check);
   check.addEventListener("click", () => handleCheckClick(subtaskItemDiv, iconsContainerWhenEdit, subtaskText));
   return iconsContainerWhenEdit;
-}
-
-async function save() {
-  let newEditedTasks = await pushNewTasksDataToArray();
-  await fetch(`http://127.0.0.1:8000/api/tasks/${tasksIdFromServer}/`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(newEditedTasks),
-  });
-}
-
-/**
- * Push Data to Array
- */
-async function pushNewTasksDataToArray() {
-  return {
-    title: editedTask.title,
-    task_status: editedTask.taskStatus,
-    description: editedTask.description,
-    assigned: editedTask.assigned,
-    due_date: editedTask.dueDate,
-    priority_content: editedTask.priorityID,
-    sub_tasks: editedTask.subtasks,
-    category: editedTask.category,
-  };
 }

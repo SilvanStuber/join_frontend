@@ -17,7 +17,12 @@ let emailRememberMe = [];
 let passwordRememberMe = [];
 let userName = [];
 let initials = [];
-let userData;
+let userData = {
+  token: "",
+  id: "",
+  username: "",
+  email: "",
+};
 
 /**
  * *
@@ -150,21 +155,6 @@ async function getItem(key) {
 }
 
 /**
- * load the user data and report an error if it is not found on the remote storage
- *
- * @param {string} key - the key to the request
- * @param {string} res - Feedback from the server
- *
- * */
-async function loadUsers() {
-  /*   try {
-    users = JSON.parse(await getItem("users"));
-  } catch (e) {
-    console.error("Loading error:", e);
-  } */
-}
-
-/**
  * Registration and saving of user data
  *
  * @param {string} name - Name from the input field
@@ -178,7 +168,8 @@ async function register() {
   userRegisterData.email = emailInput.value;
   userRegisterData.password = passwordInput.value;
   userRegisterData.repeated_password = confirmPasswordInput.value;
-  let token = await saveNewUserOnTheServer(userRegisterData);
+  userData.token = await saveNewUserOnTheServer(userRegisterData);
+  await saveContactsToServer((firstContactData = { name: userRegisterData.username, email: userRegisterData.email, phone: "Add the telephone number" }));
   resetForm();
   renderRegisteSuccessfully();
 }

@@ -5,6 +5,7 @@ function updateSubtasksDisplay() {
   const allSubtasksDiv = document.getElementById("allSubtasks");
   allSubtasksDiv.innerHTML = "";
   if (subtasks.length === 0) {
+    return;
   } else {
     subtasks.forEach((subtask, index) => {
       const subtaskItemDiv = createSubtaskItem(subtask);

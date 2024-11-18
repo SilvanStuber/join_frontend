@@ -347,7 +347,7 @@ function checkboxAddTask() {
   checkboxes.forEach((checkbox, index) => {
     let label = document.querySelector(`.nameContact[for=myCheckbox_${index}]`);
     if (checkbox.checked && label) {
-      assigned.push(label.textContent);
+      assigned.push(label.textContent.replace(/ /g, "_"));
     }
   });
 }

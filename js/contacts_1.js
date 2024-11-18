@@ -13,8 +13,8 @@ function render_contactsHtml() {
  * @returns {void} A promise that resolves when the contact deletion and UI update are complete.
  */
 async function deleteContact(event, i, contactId) {
-  deleteContactFromServer(contactId);
-  await setItemContacts("contacts", JSON.stringify(contacts));
+  await deleteContactFromServer(contactId);
+  await loadContactsFromServer();
   renderContacts();
   document.getElementById("contactCard").classList.add("d-none");
   selectedContactIndex = null;

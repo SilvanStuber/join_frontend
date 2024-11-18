@@ -3,6 +3,11 @@ let taskStatus = [];
 let contacts = [];
 let sumarryData;
 
+/**
+ * Fetches summary data from the server.
+ *
+ * @returns {Promise<void>} Updates the global `sumarryData` variable with the fetched data.
+ */
 async function loadSummaryData() {
   const response = await fetch("http://127.0.0.1:8000/api/summary/", {
     method: "GET",
@@ -14,6 +19,12 @@ async function loadSummaryData() {
   sumarryData = await response.json();
 }
 
+/**
+ * Sends login data to the server and returns the response.
+ *
+ * @param {Object} userLoginData - The login data (e.g., email and password).
+ * @returns {Promise<Object>} The server's response as a JSON object.
+ */
 async function saveNewUserOnTheServer(userRegisterData) {
   const response = await fetch("http://127.0.0.1:8000/api/auth/registration/", {
     method: "POST",
@@ -30,6 +41,11 @@ async function saveNewUserOnTheServer(userRegisterData) {
   return token;
 }
 
+/**
+ * Fetches summary data from the server.
+ *
+ * @returns {Promise<void>} Updates the global `sumarryData` variable with the fetched data.
+ */
 async function loginUserOnTheServer(userLoginData) {
   const response = await fetch("http://127.0.0.1:8000/api/auth/login/", {
     method: "POST",
@@ -47,7 +63,7 @@ async function loginUserOnTheServer(userLoginData) {
  * @throws {string} Throws an error if loading contacts data fails.
  * @returns {void} A promise that resolves when the data is loaded and processed.
  */
-async function load() {
+async function loadTasksFromServer() {
   const response = await fetch("http://127.0.0.1:8000/api/board/tasks/", {
     method: "GET",
     headers: {
@@ -151,7 +167,7 @@ async function generateDataToBackendTasks(newTask, subTaskData) {
 /**
  * Deletes a task based on the event triggered by the user.
  */
-async function deleteTask(id) {
+async function deleteTaskOnServer(id) {
   await fetch(`http://127.0.0.1:8000/api/board/tasks/${id}/`, {
     method: "DELETE",
     headers: {
@@ -192,7 +208,7 @@ async function pushContactDataToArray(response) {
   data.forEach((contact) => {
     contacts.push({
       id: contact.pk,
-      name: contact.name,
+      name: contact.name.replace(/_/g, " "),
       email: contact.email,
       phone: contact.phone,
     });
@@ -205,13 +221,12 @@ async function pushContactDataToArray(response) {
  * @returns {void} A promise that resolves when the data is saved.
  */
 async function saveContactsToServer(newContact) {
-  contacts.push(newContact);
   try {
     const response = await fetch("http://127.0.0.1:8000/api/contacts/user_contacts/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Token ${userData["token"]}`,
+        Authorization: `Token ${userData.token}`,
       },
       body: JSON.stringify(newContact),
     });

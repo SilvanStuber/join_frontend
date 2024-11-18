@@ -5,7 +5,7 @@ let draggedElementId;
  */
 async function boardInit() {
   await loadUserLoginData();
-  await load();
+  await loadTasksFromServer();
   await includeHTML();
   await loadContactsFromServer();
   setInitialsInTheHeader();
@@ -83,11 +83,13 @@ function renderProgressbar(task) {
  * Set content to Progressbar.
  */
 function setContentToProgressbar(task, progressBar, numberOfCompleted, percentOfProgressbar) {
-  setTimeout(() => {
-    document.getElementById(`smallProgress-${task.id}`).innerHTML = `${numberOfCompleted}/${task.subtasks.length}`;
-    progressBar = document.getElementById(`progress-${task.id}`);
-    progressBar.style.width = `${percentOfProgressbar}%`;
-  }, 100);
+  if (task.subtasks.length > 0) {
+    setTimeout(() => {
+      document.getElementById(`smallProgress-${task.id}`).innerHTML = `${numberOfCompleted}/${task.subtasks.length}`;
+      progressBar = document.getElementById(`progress-${task.id}`);
+      progressBar.style.width = `${percentOfProgressbar}%`;
+    }, 100);
+  }
 }
 
 /**
@@ -209,7 +211,6 @@ function removeHighlight(id) {
  * @param {Object} task - The task object containing subtasks.
  */
 function openCard(taskId, index) {
-  load();
   let largeCardElement = document.getElementById("popUpWindow");
   let task = tasks.find((t) => t.id === taskId);
   if (task) {
