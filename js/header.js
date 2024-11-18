@@ -1,3 +1,10 @@
+let deletedUserData = {
+  token: "",
+  id: "",
+  username: "",
+  email: "",
+};
+
 /**
  *  Opens or closes the submenu depending on whether the menu is open or not.
  *
@@ -53,4 +60,15 @@ function setInitialsInTheHeader() {
 function loadHelp() {
   document.getElementById("contentJoin").innerHTML = generateHelpContent();
   document.getElementById("helpIcon").classList.add("d-none");
+}
+
+/**
+ * Logs out the user by updating the local storage and resetting session data.
+ */
+function logOut() {
+  localStorage.removeItem("initials");
+  localStorage.removeItem("loggedIn");
+  localStorage.removeItem("userName");
+  localStorage.removeItem("userData");
+  window.location.href = "./loginpage.html";
 }

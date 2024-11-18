@@ -206,19 +206,6 @@ function resetForm() {
 }
 
 /**
- *  Saves e-mail and password in local storage.
- *
- *  @param {Array} emailRememberMe - Saved e-mail
- *  @param {Array} passwordRememberMe - Saved password
- * */
-function saveUserLoginData() {
-  let emailRememberMeAtText = JSON.stringify(emailRememberMe);
-  let passwordRememberMeAtText = JSON.stringify(passwordRememberMe);
-  localStorage.setItem("email", emailRememberMeAtText);
-  localStorage.setItem("password", passwordRememberMeAtText);
-}
-
-/**
  * Load e-mail and password in local storage.
  *
  *  @param {Array} emailRememberMe - Saved e-mail
