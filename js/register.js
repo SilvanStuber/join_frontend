@@ -23,6 +23,12 @@ let userData = {
   username: "",
   email: "",
 };
+let userEditRegisterData = {
+  username: "",
+  email: "",
+  password: "",
+  repeated_password: "",
+};
 
 /**
  * *
@@ -256,4 +262,19 @@ function generateRegisteSuccessfully() {
         <p class="msg-register-successfully">You Signed Up successfully</p>
       </div>
   `;
+}
+
+/**
+ * Saves new profile data by collecting input values and sending them to the server.
+ * Updates the global `userData` and re-renders the profile content.
+ *
+ * @returns {Promise<void>}
+ */
+async function saveNewProfilData() {
+  userEditRegisterData.username = document.getElementById("nameInput").value;
+  userEditRegisterData.email = document.getElementById("emailInput").value;
+  userEditRegisterData.password = document.getElementById("passwordInput").value;
+  userEditRegisterData.repeated_password = document.getElementById("confirmPasswordInput").value;
+  userData = await saveEditUserOnTheServer(userEditRegisterData, userData.id);
+  renderProfilContent();
 }

@@ -45,6 +45,26 @@ function renderLegalNoticeContent() {
 }
 
 /**
+ * Render Profil Content
+ *
+ */
+function renderProfilContent() {
+  document.getElementById("contentJoin").innerHTML = generateProfilContent();
+  document.getElementById("sidebarTextLegalNotice").classList.remove("dataProtectionTextColor");
+}
+
+/**
+ * Render Profil Content
+ *
+ */
+function renderProfilEditContent() {
+  document.getElementById("contentJoin").innerHTML = generateProfilEditContent();
+  document.getElementById("sidebarTextLegalNotice").classList.remove("dataProtectionTextColor");
+  document.getElementById("nameInput").value = userData.username;
+  document.getElementById("emailInput").value = userData.email;
+}
+
+/**
  * Remove Style from the sidebar
  *
  */

@@ -20,7 +20,7 @@ async function loadSummaryData() {
 }
 
 /**
- * Sends login data to the server and returns the response.
+ * Sends register data to the server and returns the response.
  *
  * @param {Object} userLoginData - The login data (e.g., email and password).
  * @returns {Promise<Object>} The server's response as a JSON object.
@@ -39,6 +39,27 @@ async function saveNewUserOnTheServer(userRegisterData) {
   const data = await response.json();
   const token = data.token;
   return token;
+}
+
+/**
+ * Sends new register data to the server and returns the response.
+ *
+ * @param {Object} userLoginData - The login data (e.g., email and password).
+ * @returns {Promise<Object>} The server's response as a JSON object.
+ */
+async function saveEditUserOnTheServer(userRegisterData, idOfUser) {
+  const response = await fetch("http://127.0.0.1:8000/api/auth/registration/", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userRegisterData),
+  });
+  if (!response.ok) {
+    throw new Error(`Error: ${response.status} ${response.statusText}`);
+  }
+  const data = await response.json();
+  return data;
 }
 
 /**

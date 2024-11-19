@@ -1,0 +1,123 @@
+.headline-edit-profil {
+  color: rgba(0, 0, 0, 1);
+  font-family: "Inter", sans-serif;
+  font-size: 61px;
+  font-weight: 700;
+  padding-bottom: 30px;
+}
+
+.user-data-content-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.user-data-content-headline {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.user-data-content-description {
+  margin-bottom: 12px;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.edit-profil-button-container {
+  padding-left: calc(100vw - 536px);
+}
+
+.edit-profil {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: 73px;
+  height: 24px;
+}
+
+.edit-profil-title {
+  color: var(--Version-2-main-color, #2a3647);
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19.2%;
+}
+
+.edit-profil:hover .edit-profil-title {
+  color: #2aaae2;
+}
+
+.edit-profil-button-edit-container {
+  padding-left: calc(100vw - 559px);
+}
+
+.input-field-container-profil {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 422px;
+  height: 48px;
+  border-radius: 10px;
+  padding-left: 21px;
+  padding-right: 21px;
+  border: 1px solid rgba(209, 209, 209, 1) !important;
+}
+
+.input-field-profile {
+  font-family: "Inter", sans-serif;
+  width: 380px;
+  height: 32px;
+  font-size: 20px;
+  outline: none;
+  border: none;
+  background-color: rgb(246, 248, 246);
+}
+
+.input-field-profile::placeholder {
+  display: flex;
+  justify-content: space-between;
+  border: none;
+  height: 32px;
+  font-size: 20px;
+  color: rgba(209, 209, 209, 1) !important;
+}
+
+.save-button-profil {
+  transition: all 100ms ease-in-out;
+  display: flex;
+  padding: 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  border-radius: 10px;
+  background: #2a3647;
+  text-decoration: none;
+}
+
+.save-button-profil:hover {
+  cursor: pointer;
+  background: #29abe2;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.text_create-profil {
+  width: 123px;
+  height: 24px;
+  color: #fff;
+  font-family: "Inter", sans-serif;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.leads-to-profil {
+  text-decoration: none;
+}
+
+.profil-password-does-not-match {
+  color: rgba(255, 129, 144, 1);
+}
