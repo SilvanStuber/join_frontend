@@ -47,13 +47,14 @@ async function saveNewUserOnTheServer(userRegisterData) {
  * @param {Object} userLoginData - The login data (e.g., email and password).
  * @returns {Promise<Object>} The server's response as a JSON object.
  */
-async function saveEditUserOnTheServer(userRegisterData, idOfUser) {
-  const response = await fetch("http://127.0.0.1:8000/api/auth/registration/", {
+async function saveEditUserOnTheServer(userEditData, idOfUser) {
+  const response = await fetch(`http://127.0.0.1:8000/api/auth/update-user/${idOfUser}/`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Token ${userData["token"]}`,
     },
-    body: JSON.stringify(userRegisterData),
+    body: JSON.stringify(userEditData),
   });
   if (!response.ok) {
     throw new Error(`Error: ${response.status} ${response.statusText}`);

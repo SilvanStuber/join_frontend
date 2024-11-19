@@ -72,8 +72,8 @@ function generateProfilEditContent() {
             </div>
             <div class="edit-profil-button-edit-container">
             <div class="save-button">
-                    <p class="leads-to-profil" onclick="saveNewProfilData()" id="leadsToBoard">
-                        <div class="save-button-profil">
+                    <p class="leads-to-profil" id="leadsToBoard">
+                        <div class="save-button-profil" onclick="saveNewProfilData()">
                             <div class="text_create-profil ">Ok <img src="./assets/img/check.png" alt=""></div>            
                         </div>
 </p>

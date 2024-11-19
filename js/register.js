@@ -75,7 +75,7 @@ async function guestLogin() {
   responseDataLogin = await loginUserOnTheServer(guestLoginData);
   if (responseDataLogin.email) {
     localStorage.setItem("userData", JSON.stringify(responseDataLogin));
-    let name = "Guest";
+    let name = responseDataLogin.username.replace(/_/g, " ");
     setInitialsOfTheUser(name);
     window.location.href = "./summary.html";
   }
@@ -271,10 +271,14 @@ function generateRegisteSuccessfully() {
  * @returns {Promise<void>}
  */
 async function saveNewProfilData() {
-  userEditRegisterData.username = document.getElementById("nameInput").value;
+  userEditRegisterData.username = document.getElementById("nameInput").value.replace(/ /g, "_");
   userEditRegisterData.email = document.getElementById("emailInput").value;
   userEditRegisterData.password = document.getElementById("passwordInput").value;
   userEditRegisterData.repeated_password = document.getElementById("confirmPasswordInput").value;
-  userData = await saveEditUserOnTheServer(userEditRegisterData, userData.id);
+  userEditRegisterData = await saveEditUserOnTheServer(userEditRegisterData, userData.id);
+  userData.username = userEditRegisterData.username.replace(/_/g, " ");
+  userData.email = userEditRegisterData.email;
+  setInitialsOfTheUser(userData.username);
+  setInitialsInTheHeader();
   renderProfilContent();
 }
