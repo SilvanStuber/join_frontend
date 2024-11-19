@@ -67,10 +67,13 @@ function renderTask() {
  * @param {HTMLElement} contactsList - The container element for the list of contacts.
  */
 function renderContactsAddTask(i, contactsList) {
+  let surname = "";
   let contact = contacts[i];
   let name = contact.name;
   let firstname = name.split(" ")[0][0].toUpperCase();
-  let surname = name.split(" ")[1][0].toUpperCase();
+  if (name.split(" ")[1]) {
+    surname = name.split(" ")[1][0].toUpperCase();
+  }
   let contactElement = document.createElement("li");
   contactElement.classList.add("contactList");
   contactElement.innerHTML = generateContactsAddTask(name, firstname, surname, i);
@@ -173,11 +176,14 @@ function displayAvatar(selectedContacts, contacts) {
   let contactAvatar = document.getElementById("contactAvatar");
   contactAvatar.innerHTML = "";
   for (let i = 0; i < selectedContacts.length; i++) {
+    let surname = "";
     let selectedIndex = selectedContacts[i];
     let contact = contacts[selectedIndex];
     let name = contact.name;
     let firstname = name.split(" ")[0][0].toUpperCase();
-    let surname = name.split(" ")[1][0].toUpperCase();
+    if (name.split(" ")[1]) {
+      surname = name.split(" ")[1][0].toUpperCase();
+    }
     let currentContactContent = generateAvatarAddTask(selectedIndex, contact, firstname, surname);
     contactAvatar.innerHTML += currentContactContent;
   }

@@ -66,10 +66,13 @@ function renderSmallContats() {
  */
 function renderContentUserLargeCard(assigned, idTask, contactsSmallCard, maxContactsToShow, totalAssigned, taskIndex) {
   for (let a = 0; a < Math.min(maxContactsToShow, totalAssigned); a++) {
+    let surname = "";
     let name = assigned[a].replace(/_/g, " ");
     let firstname = name[0].toUpperCase();
     let names = assigned[a].replace(/_/g, " ").split(" ");
-    let surname = names[1].toUpperCase().charAt(0);
+    if (names[1]) {
+      surname = names[1].toUpperCase().charAt(0);
+    }
     contactsSmallCard.innerHTML += generateContactsSmalCard(a, firstname, surname);
   }
   return totalAssigned;
@@ -85,11 +88,14 @@ function renderLargeContats(task) {
   if (task && task["assigned"]) {
     const assigned = task["assigned"];
     for (let d = 0; d < assigned.length; d++) {
+      let surname = "";
       const assigendAvatar = assigned[d];
       let name = assigned[d].replace(/_/g, " ");
       let firstname = name[0].toUpperCase();
       let names = assigned[d].replace(/_/g, " ").split(" ");
-      let surname = names[1].toUpperCase().charAt(0);
+      if (names[1]) {
+        surname = names[1].toUpperCase().charAt(0);
+      }
       contactsLargeCard.innerHTML += generatCircleContactsLargeCard(d, firstname, surname, assigendAvatar);
     }
   }

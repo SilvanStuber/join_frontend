@@ -84,11 +84,14 @@ function displayAvatarEditBoart(selecetContactsEdit, contacts, colors) {
   let contactAvatarEdit = document.getElementById("contactAvatarEditBoard");
   contactAvatarEdit.innerHTML = "";
   for (let i = 0; i < selecetContactsEdit.length; i++) {
+    let surnameBoard = "";
     let selectedIndexBoar = selecetContactsEdit[i];
     let contact = contacts[selectedIndexBoar];
     let name = contact.name;
     let firstnameBoard = name.split(" ")[0][0].toUpperCase();
-    let surnameBoard = name.split(" ")[1][0].toUpperCase();
+    if (name.split(" ")[1]) {
+      surnameBoard = name.split(" ")[1][0].toUpperCase();
+    }
     let currentContactContentBoard = generateAvatarAddTaskBoard(selectedIndexBoar, contact, firstnameBoard, surnameBoard);
     contactAvatarEdit.innerHTML += currentContactContentBoard;
   }
@@ -150,10 +153,13 @@ function validationContactsCheckedEdit(i, liElementEdit, nameElementEdit, labelE
  * @param {HTMLElement} contactsList - The list element to which the contact is appended.
  */
 function renderContactsAddTaskBoard(i, contactsList) {
+  let surnameBoard = "";
   let contact = contacts[i];
   let nameEdit = contact.name;
   let firstnameBoard = nameEdit.split(" ")[0][0].toUpperCase();
-  let surnameBoard = nameEdit.split(" ")[1][0].toUpperCase();
+  if (nameEdit.split(" ")[1]) {
+    surnameBoard = nameEdit.split(" ")[1][0].toUpperCase();
+  }
   let contactElement = document.createElement("li");
   contactElement.classList.add("contactListBoard");
   contactElement.innerHTML = generateContactsAddTaskBoard(nameEdit, firstnameBoard, surnameBoard, i);

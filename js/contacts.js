@@ -48,10 +48,13 @@ function showContacts() {
   contactsdiv.innerHTML = "";
   let currentLetter = "";
   for (let i = 0; i < contacts.length; i++) {
+    let surname = "";
     let name = contacts[i].name;
     let firstname = name[0].toUpperCase();
     let names = name.split(" ");
-    let surname = names[1].toUpperCase().charAt(0);
+    if (names[1]) {
+      surname = names[1].toUpperCase().charAt(0);
+    }
     contactsdiv.innerHTML += displayContacts(contacts[i], i, firstname, surname);
   }
 }
