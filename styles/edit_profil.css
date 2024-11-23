@@ -25,6 +25,7 @@
 
 .edit-profil-button-container {
   padding-left: calc(100vw - 536px);
+  margin-top: 80px;
 }
 
 .edit-profil {
@@ -120,4 +121,74 @@
 
 .profil-password-does-not-match {
   color: rgba(255, 129, 144, 1);
+}
+
+@media (max-width: 1000px) {
+  .content-container-profil {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100vw;
+    margin-left: -32px;
+  }
+
+  .headline-edit-profil {
+    margin-left: -34px;
+  }
+
+  .edit-profil-button-container {
+    position: absolute;
+    right: 12px;
+  }
+
+  .edit-profil-button-edit-container {
+    padding-left: 0;
+    position: absolute;
+    right: 24px;
+    width: 80px;
+    padding-top: 12px;
+  }
+}
+
+@media (max-width: 750px) {
+  .input-field-container-profil {
+    width: 365px;
+  }
+}
+
+@media (max-width: 520px) {
+  .content-container-profil {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100vw;
+  }
+
+  .headline-edit-profil {
+    margin-left: -134px;
+  }
+
+  .input-field-container-profil {
+    width: 280px;
+  }
+
+  .edit-profil-button-edit-container {
+    padding-top: 32px;
+  }
+}
+
+@media (max-width: 400px) {
+  .input-field-container-profil {
+    width: 240px;
+  }
+
+  .input-field-profile {
+    width: 227px;
+  }
+
+  .content-container-profil {
+    padding-left: 12px;
+  }
 }

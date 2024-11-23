@@ -9,6 +9,7 @@ function generateProfilContent() {
               <img onclick="closelegalHelpPrivacyContent()" class="arrow-back" src="./assets/img/arrow-left-line.svg" alt="arrowback" />
             </div>
             <div class="content-container">
+            <div class="content-container-profil">
               <h1 class="headline-edit-profil">Profil</h1>
               <div class="user-data-content-container">
               <h2 class="user-data-content-headline">User name</h2>
@@ -19,7 +20,7 @@ function generateProfilContent() {
               <p class="user-data-content-description">************************</p>
               </div>
               <div>
-              
+              </div>
           </div>
           <div class="edit-profil-button-container">
           <div onclick="renderProfilEditContent()" class="edit-profil" onmouseover="changeEditImage(true)" onmouseout="changeEditImage(false)" style="display: flex; align-items: center; gap: 4px; cursor:pointer;">
@@ -43,6 +44,7 @@ function generateProfilEditContent() {
                 <img onclick="renderProfilContent()" class="arrow-back" src="./assets/img/arrow-left-line.svg" alt="arrowback" />
               </div>
               <div class="content-container">
+              <div class="content-container-profil">
                 <h1 class="headline-edit-profil">Profil</h1>
                 <div class="user-data-content-container">
                 <h2 class="user-data-content-headline">User name</h2>
@@ -67,6 +69,7 @@ function generateProfilEditContent() {
                     </div>
                 </div>
                 <p class="profil-password-does-not-match" id="textThePasswordNotMatchSignUp"></p>
+                </div>
         </form>
         <div>    
             </div>
