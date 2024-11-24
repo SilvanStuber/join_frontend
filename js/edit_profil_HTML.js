@@ -25,7 +25,7 @@ function generateProfilContent() {
           <div class="edit-profil-button-container">
           <div onclick="renderProfilEditContent()" class="edit-profil" onmouseover="changeEditImage(true)" onmouseout="changeEditImage(false)" style="display: flex; align-items: center; gap: 4px; cursor:pointer;">
                       <img id="edit-task-image" class="imgEdit_task" src="./assets/img/edit_task.png" alt="">
-                      <p class="edit-profil-title">Edit</p>
+                      <p id="signUpButton" class="edit-profil-title">Edit</p>
                     </div>
               </div>
               </div>
@@ -77,7 +77,7 @@ function generateProfilEditContent() {
             <div class="save-button">
                     <p class="leads-to-profil" id="leadsToBoard">
                         <div class="save-button-profil" onclick="saveNewProfilData()">
-                            <div class="text_create-profil ">Ok <img src="./assets/img/check.png" alt=""></div>            
+                            <div id="signUpButton" class="text_create-profil ">Ok <img src="./assets/img/check.png" alt=""></div>            
                         </div>
 </p>
                 </div>

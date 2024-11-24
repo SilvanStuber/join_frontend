@@ -33,6 +33,12 @@
   <body onload="addTaskInit()" onclick="closeSubmenu()">
     <div w3-include-html="./assets/templates/sidebar.html"></div>
     <div w3-include-html="./assets/templates/header.html"></div>
+    <div onclick="doNotClose(event)" id="submenu" class="submenu-container">
+      <span onclick="renderLegalNoticeContent()" class="submenu-text">Legal Notice</span>
+      <span onclick="renderPrivacyPolicyContent()" class="submenu-text">Privacy Policy</span>
+      <span onclick="renderProfilContent()" class="submenu-text">Profil</span>
+      <a onclick="logOut()" class="submenu-text">Log out</a>
+    </div>
     <div id="contentJoin">
       <div class="contentTask">
         <div class="content_addTask">

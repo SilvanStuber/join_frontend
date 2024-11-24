@@ -70,5 +70,5 @@ function logOut() {
   localStorage.removeItem("loggedIn");
   localStorage.removeItem("userName");
   localStorage.removeItem("userData");
-  window.location.href = "./loginpage.html";
+  window.location.href = "./index.html";
 }

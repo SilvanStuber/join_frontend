@@ -100,7 +100,7 @@ function formatDateOfTask(dateOfTask) {
 function loadContentGreeting() {
   if (!loggedIn) {
     document.getElementById("greetingTextResponsive").innerHTML = greetingText;
-    document.getElementById("userNameResponsive").innerHTML = userName;
+    document.getElementById("userNameResponsive").innerHTML = userData.username.replace(/_/g, " ");
   } else {
     document.getElementById("greetingBox").classList.add("d-none");
   }
