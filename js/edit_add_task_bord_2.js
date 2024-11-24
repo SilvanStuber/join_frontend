@@ -6,7 +6,6 @@
 function handleDeleteClick(subtaskItemDiv, index) {
   subtasks.splice(index, 1);
   subtaskItemDiv.remove();
-  save();
 }
 
 /**
@@ -65,13 +64,20 @@ function hideAssignedBoardEdit(event, taskId) {
     list.classList.toggle("hide");
     arrow.classList.toggle("rotate");
     arrowDrop.classList.toggle("rotate");
-    dateAddTaskEdit.classList.toggle("inputRight_addTaskEditOpen");
   }
   displayAvatarEditBoart(selecetContactsEdit, contacts, colors);
   if (!assignedMenuOpen) {
     validateAssignedContacts(taskId);
   }
   assignedMenuOpen = true;
+}
+
+function calculationOfTheAmountAssignedList(taskId) {
+  let highList = 40;
+  if (tasks[taskId].assigned.length > 0) {
+    highList = tasks[taskId].assigned.length * 40;
+  }
+  return highList;
 }
 
 /**
@@ -112,6 +118,7 @@ function contactCheckedEdit(i, liElementEdit, nameElementEdit, labelElementEdit)
   liElementEdit.classList.add("contactListSelected");
   nameElementEdit.classList.add("nameContactWhite");
   labelElementEdit.style.setProperty("background-image", "url('')");
+  assignedWwasEdited = true;
 }
 
 /**
@@ -129,6 +136,7 @@ function contactNotCheckedEdit(i, liElementEdit, nameElementEdit, labelElementEd
   liElementEdit.classList.remove("contactListSelected");
   nameElementEdit.classList.remove("nameContactWhite");
   labelElementEdit.style.setProperty("background-image", "url('')");
+  assignedWwasEdited = true;
 }
 
 /**

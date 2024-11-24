@@ -31,7 +31,6 @@ function closeCard() {
   const largeCardElement = document.getElementById("popUpWindow");
   largeCardElement.style.transform = "translateX(500%)";
   assignedMenuOpen = false;
-  location.reload();
 }
 
 /**

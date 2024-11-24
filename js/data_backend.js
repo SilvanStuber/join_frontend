@@ -197,7 +197,15 @@ async function deleteTaskOnServer(id) {
       Authorization: `Token ${userData["token"]}`,
     },
   });
+  await loadUserLoginData();
+  await loadTasksFromServer();
+  await includeHTML();
+  await loadContactsFromServer();
+  setInitialsInTheHeader();
+  removeStyleSidebar();
+  addTextColor();
   updateHtml();
+  renderSmallContats();
   closeCard();
 }
 

@@ -7,6 +7,7 @@ let editSubs = [];
 let subtaskIndex = 0;
 let tasksIdFromServer;
 let editedTask;
+let assignedWwasEdited = false;
 
 /**
  * Edits the large card based on the given taskId.
@@ -122,7 +123,6 @@ function saveEditTaskBoard(taskId) {
   checkboxAddTaskEdit();
   priorityContentArray.unshift(priorityContentBoard);
   loadNewBoard(taskId, foundTask, status, priorityContentBoard, selectedPriorityIDBoard, category);
-  location.reload();
 }
 
 /**
@@ -137,35 +137,15 @@ function saveEditTaskBoard(taskId) {
  * @param {string} selectedPriorityIDBoard - The ID of the selected priority for the task on the board.
  * @param {string} category - The category the task belongs to.
  */
-function loadNewBoard(taskId, foundTask, status, priorityContentBoard, selectedPriorityIDBoard, category) {
-  if (!assigned.length) {
+async function loadNewBoard(taskId, foundTask, status, priorityContentBoard, selectedPriorityIDBoard, category) {
+  if (!assignedWwasEdited) {
     assigned = oldAssigned.slice();
   }
-  generateEditedTask(foundTask, taskId, status, selectedPriorityIDBoard, priorityContentBoard, assigned, category);
+  await saveEditedTask(foundTask, taskId, status, selectedPriorityIDBoard, priorityContentBoard, assigned, category);
+  subtasks = [];
+  editSubs = [];
   saveRevisedTaskCompletion(priorityContentBoard);
-  boardInit();
-}
-
-/**
- * Generates an edited task and updates it in the tasks array.
- * @param {Object} foundTask - The original task object to be edited.
- * @param {string} taskId - The ID of the task to be edited.
- * @param {string} status - The status of the edited task.
- * @param {string} selectedPriorityIDBoard - The ID of the selected priority for the edited task.
- * @param {string} priorityContentBoard - The priority content for the edited task.
- * @param {string} assigned - The array of assigned contacts for the edited task.
- * @param {string} category - The category of the edited task.
- */
-function generateEditedTask(foundTask, taskId, status, selectedPriorityIDBoard, priorityContentBoard, assigned, category) {
-  if (foundTask) {
-    saveEditedTask(foundTask, taskId, status, selectedPriorityIDBoard, priorityContentBoard, assigned, category);
-    subtasks = [];
-    editSubs = [];
-    tasks = tasks.map((task) => (task.id === taskId ? editedTask : task));
-    updateTaskOnServer(editedTask, taskId);
-  } else {
-    return;
-  }
+  assignedWwasEdited = false;
 }
 
 /**
@@ -179,30 +159,37 @@ function generateEditedTask(foundTask, taskId, status, selectedPriorityIDBoard, 
  * @param {Array} assigned - Assigned members.
  * @param {string} category - Task category.
  */
-function saveEditedTask(foundTask, taskId, status, selectedPriorityIDBoard, priorityContentBoard, assigned, category) {
+async function saveEditedTask(foundTask, taskId, status, selectedPriorityIDBoard, priorityContentBoard, assigned, category) {
   editedTask = {
-    id: taskId,
     title: document.getElementById("editTitle").value,
     description: document.getElementById("editDescription").value,
-    dueDate: document.getElementById("editDueDate").value,
-    taskStatus: status,
-    priorityContent: priorityContentBoard,
-    priorityID: selectedPriorityIDBoard,
+    due_date: document.getElementById("editDueDate").value,
+    task_status: status,
+    priority_content: selectedPriorityIDBoard,
     assigned: assigned,
     category: category,
-    subtasks: oldSubs.slice(),
+    sub_tasks: oldSubs.slice(),
   };
+  await updateTaskOnServer(editedTask, taskId);
 }
 
 /**
  * Saves the revised task completion details to local storage.
  * @param {string} priorityContentBoard - The priority content for the revised task completion.
  */
-function saveRevisedTaskCompletion(priorityContentBoard) {
-  loadTasksFromServer();
+async function saveRevisedTaskCompletion(priorityContentBoard) {
+  await loadUserLoginData();
+  await loadTasksFromServer();
+  await includeHTML();
+  await loadContactsFromServer();
+  setInitialsInTheHeader();
+  removeStyleSidebar();
+  addTextColor();
   updateHtml();
+  renderSmallContats();
   closeCard();
   assignedMenuOpen = false;
+  console.log("1111", tasks);
 }
 
 /**
@@ -236,7 +223,6 @@ function deleteSubs(index) {
   oldSubs.splice(index, 1);
   const subtaskItem = document.querySelectorAll(".subtaskItem")[index];
   subtaskItem.remove();
-  save();
   displaySubtasks();
 }
 
@@ -256,7 +242,6 @@ function addSubtasksEdit() {
     };
     oldSubs.push(newSubtaskData);
     displaySubtasks();
-    save();
   }
 }
 
